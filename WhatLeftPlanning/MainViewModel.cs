@@ -28,8 +28,8 @@ namespace WhatLeftPlanning
             result.Add(new NavigationItemModel("Home") { NavigationTarget = typeof(Home), Glyph = "Icons/Home.png" });
             result.Add(new SeparatorItem());
             var subMenu = new SubMenuItemModel("Menu") { Glyph = "Icons/Menu.png" };
-            subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 1", "PreviewItem 1") { RightContent = "RC", ShowInPreview = true, SelectOnClick = false });
-            subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 2", "PreviewItem 2") { ShowInPreview = true, SelectOnClick = false });
+            subMenu.Items.Add(new SubMenuNavigationItemModel("Reportes", "PreviewItem 1 Espejo") { RightContent = "RC", ShowInPreview = true, SelectOnClick = false });
+            subMenu.Items.Add(new SubMenuNavigationItemModel("Otro", "PreviewItem 2") { ShowInPreview = true , NavigationTarget = typeof(Home)});
             subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 3", null) { IsSelected = true });
             subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 4", null) { RightContent = "RC", ShowMark = true });
             result.Add(subMenu);
