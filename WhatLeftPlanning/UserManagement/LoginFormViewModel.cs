@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WhatLeftPlanning.Services;
 using System.Windows;
+using WhatLeftPlanning.Startup;
+using Autofac;
 
 namespace WhatLeftPlanning.UserManagement
 {
@@ -34,10 +36,21 @@ namespace WhatLeftPlanning.UserManagement
             if (result)
             {
                 MessageBox.Show("Usuario Valido");
-                return;
-            }
 
-            MessageBox.Show("Usuario No valido");
+                var boostrapper = Bootstrapper.Instance();
+                var container = boostrapper.Bootstrap();
+                var mainWindow = container.Resolve<MainWindow>();
+                var loginWindow = container.Resolve<LoginForm>();
+
+                loginWindow.Hide();
+                mainWindow.ShowDialog();
+                loginWindow.Visibility = Visibility.Visible;
+                loginWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usuario No valido");
+            }
         }
 
         private void OnCancel()

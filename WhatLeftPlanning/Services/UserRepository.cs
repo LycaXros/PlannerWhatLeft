@@ -53,17 +53,39 @@ namespace WhatLeftPlanning.Services
 
         public Task<List<Usuario>> ObtenerListaUsuariosAsync()
         {
-           return _context.Usuario.ToListAsync();
+            return _context.Usuario.ToListAsync();
         }
 
         public async Task<bool> ValidarCredencialesAsync(string nick, string pass)
         {
 
-            var user = await _context.Usuario
-                .AnyAsync(x => x.Nick.Equals(nick) && x.Contraseña.Equals(pass));
-                
+            var userExist = await _context.Usuario
+                .AnyAsync(x => x.Nick.Equals(nick));
+            var passConverted = Encriptador.Encriptar(pass);
 
-            return user;
+            try
+            {
+                var dataConfig = (DataEntity.XmlConfig.DataSection)System.Configuration.ConfigurationManager
+                        .GetSection("customData/dataEntry");
+                var savedPass = dataConfig.Entry.Value;
+
+            }
+            catch (Exception ex)
+            {   }
+            if (userExist)
+            {
+                var dbPass = await _context.Usuario
+                    .Where(x => x.Nick.Equals(nick))
+                    .Select(x => x.Contraseña)
+                    .FirstAsync();
+
+                var decryptedPass = Encriptador.Desencriptar(dbPass);
+                return pass.Equals(decryptedPass);
+
+                //&& x.Contraseña.Equals(pass)
+            }
+
+            return false;
         }
     }
 }
