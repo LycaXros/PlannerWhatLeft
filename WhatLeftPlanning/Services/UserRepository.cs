@@ -58,11 +58,12 @@ namespace WhatLeftPlanning.Services
 
         public async Task<bool> ValidarCredencialesAsync(string nick, string pass)
         {
-            var user = await _context.Usuario
-                .Where(x => x.Nick.Equals(nick) && x.Contraseña.Equals(pass))
-                .FirstOrDefaultAsync();
 
-            return user != null;
+            var user = await _context.Usuario
+                .AnyAsync(x => x.Nick.Equals(nick) && x.Contraseña.Equals(pass));
+                
+
+            return user;
         }
     }
 }

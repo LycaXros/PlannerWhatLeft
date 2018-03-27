@@ -18,6 +18,7 @@ namespace DataEntity
         public Usuario()
         {
             this.Tarea = new HashSet<Tarea>();
+            this.Rol = new HashSet<Rol>();
         }
     
         public int ID { get; set; }
@@ -29,5 +30,7 @@ namespace DataEntity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarea> Tarea { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rol> Rol { get; set; }
     }
 }

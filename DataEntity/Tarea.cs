@@ -18,11 +18,11 @@ namespace DataEntity
         public Tarea()
         {
             this.Tarea_Detalle = new HashSet<Tarea_Detalle>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
         public int ID { get; set; }
         public int TipoID { get; set; }
-        public int UsuarioID { get; set; }
         public string Nombre { get; set; }
         public string Descripción { get; set; }
         public string Estado { get; set; }
@@ -30,6 +30,7 @@ namespace DataEntity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarea_Detalle> Tarea_Detalle { get; set; }
         public virtual Tipo_Tarea Tipo_Tarea { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

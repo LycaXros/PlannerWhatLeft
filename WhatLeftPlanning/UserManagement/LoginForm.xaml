@@ -24,7 +24,7 @@
             <TextBlock Text="Contraseña" HorizontalAlignment="Left"
                        VerticalAlignment="Top" FontSize="40" Width="250"
                        />
-            <dxe:PasswordBoxEdit Text="{Binding Password}" Width="auto" FontSize="30"/>
+            <dxe:PasswordBoxEdit Text="{Binding Password}" Width="auto" FontSize="30" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>

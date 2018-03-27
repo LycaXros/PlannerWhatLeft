@@ -65,62 +65,64 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Detalle_Tiempo.cs">
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="PlanningDataModel.Context.cs">
+    <Compile Include="PlanningDbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanningDataModel.Context.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.Context.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="PlanningDataModel.cs">
+    <Compile Include="PlanningDbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="PlanningDataModel.Designer.cs">
+    <Compile Include="PlanningDbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanningDataModel.edmx</DependentUpon>
+      <DependentUpon>PlanningDbModel.edmx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rol.cs">
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Tarea.cs">
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Tarea_Detalle.cs">
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Tipo_Tarea.cs">
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Usuario.cs">
-      <DependentUpon>PlanningDataModel.tt</DependentUpon>
+      <DependentUpon>PlanningDbModel.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="PlanningDataModel.edmx">
+    <EntityDeploy Include="PlanningDbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlanningDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlanningDbModel.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EntityDeploy>
-    <None Include="PlanningDataModel.edmx.diagram">
-      <DependentUpon>PlanningDataModel.edmx</DependentUpon>
+    <None Include="PlanningDbModel.edmx.diagram">
+      <DependentUpon>PlanningDbModel.edmx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PlanningDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanningDataModel.edmx</DependentUpon>
-      <LastGenOutput>PlanningDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="PlanningDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanningDataModel.edmx</DependentUpon>
-      <LastGenOutput>PlanningDataModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -133,6 +135,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PlanningDbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanningDbModel.edmx</DependentUpon>
+      <LastGenOutput>PlanningDbModel.Context.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PlanningDbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanningDbModel.edmx</DependentUpon>
+      <LastGenOutput>PlanningDbModel.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
