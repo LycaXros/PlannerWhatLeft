@@ -1,0 +1,629 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PlanningDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Detalle_Tiempo">
+          <Key>
+            <PropertyRef Name="TareaDetalleID" />
+          </Key>
+          <Property Name="TareaDetalleID" Type="int" Nullable="false" />
+          <Property Name="FechaLimite" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreadorID" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RolUsuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="RolID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripción" Type="nvarchar" MaxLength="250" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Tarea_Detalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TareaID" Type="int" Nullable="false" />
+          <Property Name="FechaIni" Type="date" Nullable="false" />
+          <Property Name="FechaFin" Type="date" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="TareaAsignadas">
+          <Key>
+            <PropertyRef Name="DetalleID" />
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="DetalleID" Type="int" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tipo_Tarea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Nick" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar(max)" />
+          <Property Name="ArchivoConf" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupo">
+          <Key>
+            <PropertyRef Name="GrupoID" />
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="GrupoID" Type="int" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Grupo_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="CreadorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolUsuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="RolUsuario" Type="Self.RolUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RolUsuario">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RolUsuario" Type="Self.RolUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RolUsuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TareaAsignadas_Tarea_Detalle">
+          <End Role="Tarea_Detalle" Type="Self.Tarea_Detalle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TareaAsignadas" Type="Self.TareaAsignadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea_Detalle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TareaAsignadas">
+              <PropertyRef Name="DetalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TareaAsignadas_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TareaAsignadas" Type="Self.TareaAsignadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TareaAsignadas">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioGrupo_Grupo">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="GrupoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioGrupo_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkDetalleTareaID">
+          <End Role="Tarea" Type="Self.Tarea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tarea_Detalle" Type="Self.Tarea_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tarea_Detalle">
+              <PropertyRef Name="TareaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkDetalleTiempoTareaID">
+          <End Role="Tarea_Detalle" Type="Self.Tarea_Detalle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Detalle_Tiempo" Type="Self.Detalle_Tiempo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea_Detalle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Detalle_Tiempo">
+              <PropertyRef Name="TareaDetalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTareaTipoID">
+          <End Role="Tipo_Tarea" Type="Self.Tipo_Tarea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Tarea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="TipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PlanningDBModelStoreContainer">
+          <EntitySet Name="Detalle_Tiempo" EntityType="Self.Detalle_Tiempo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarea" EntityType="Self.Tarea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarea_Detalle" EntityType="Self.Tarea_Detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TareaAsignadas" EntityType="Self.TareaAsignadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Tarea" EntityType="Self.Tipo_Tarea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolUsuario" EntityType="Self.RolUsuario" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RolUsuario].[UsuarioID] AS [UsuarioID], 
+    [RolUsuario].[RolID] AS [RolID]
+    FROM [dbo].[RolUsuario] AS [RolUsuario]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Grupo_Usuario" Association="Self.FK_Grupo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolUsuario_Rol" Association="Self.FK_RolUsuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolUsuario" EntitySet="RolUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolUsuario_Usuario" Association="Self.FK_RolUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RolUsuario" EntitySet="RolUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TareaAsignadas_Tarea_Detalle" Association="Self.FK_TareaAsignadas_Tarea_Detalle">
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TareaAsignadas_Usuario" Association="Self.FK_TareaAsignadas_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioGrupo_Grupo" Association="Self.FK_UsuarioGrupo_Grupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioGrupo_Usuario" Association="Self.FK_UsuarioGrupo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="fkDetalleTareaID" Association="Self.fkDetalleTareaID">
+            <End Role="Tarea" EntitySet="Tarea" />
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="fkDetalleTiempoTareaID" Association="Self.fkDetalleTiempoTareaID">
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+            <End Role="Detalle_Tiempo" EntitySet="Detalle_Tiempo" />
+          </AssociationSet>
+          <AssociationSet Name="fkTareaTipoID" Association="Self.fkTareaTipoID">
+            <End Role="Tipo_Tarea" EntitySet="Tipo_Tarea" />
+            <End Role="Tarea" EntitySet="Tarea" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlanningDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PlanningOther" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Detalle_Tiempo" EntityType="PlanningDBModel.Detalle_Tiempo" />
+          <EntitySet Name="Grupo" EntityType="PlanningDBModel.Grupo" />
+          <EntitySet Name="Rol" EntityType="PlanningDBModel.Rol" />
+          <EntitySet Name="Tarea" EntityType="PlanningDBModel.Tarea" />
+          <EntitySet Name="Tarea_Detalle" EntityType="PlanningDBModel.Tarea_Detalle" />
+          <EntitySet Name="TareaAsignadas" EntityType="PlanningDBModel.TareaAsignadas" />
+          <EntitySet Name="Tipo_Tarea" EntityType="PlanningDBModel.Tipo_Tarea" />
+          <EntitySet Name="Usuario" EntityType="PlanningDBModel.Usuario" />
+          <AssociationSet Name="fkDetalleTiempoTareaID" Association="PlanningDBModel.fkDetalleTiempoTareaID">
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+            <End Role="Detalle_Tiempo" EntitySet="Detalle_Tiempo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grupo_Usuario" Association="PlanningDBModel.FK_Grupo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="fkDetalleTareaID" Association="PlanningDBModel.fkDetalleTareaID">
+            <End Role="Tarea" EntitySet="Tarea" />
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="fkTareaTipoID" Association="PlanningDBModel.fkTareaTipoID">
+            <End Role="Tipo_Tarea" EntitySet="Tipo_Tarea" />
+            <End Role="Tarea" EntitySet="Tarea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TareaAsignadas_Tarea_Detalle" Association="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle">
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TareaAsignadas_Usuario" Association="PlanningDBModel.FK_TareaAsignadas_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioGrupo" Association="PlanningDBModel.UsuarioGrupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="RolUsuario" Association="PlanningDBModel.RolUsuario">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Detalle_Tiempo">
+          <Key>
+            <PropertyRef Name="TareaDetalleID" />
+          </Key>
+          <Property Name="TareaDetalleID" Type="Int32" Nullable="false" />
+          <Property Name="FechaLimite" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Tarea_Detalle" Relationship="PlanningDBModel.fkDetalleTiempoTareaID" FromRole="Detalle_Tiempo" ToRole="Tarea_Detalle" />
+        </EntityType>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreadorID" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Creador" Relationship="PlanningDBModel.FK_Grupo_Usuario" FromRole="Grupo" ToRole="Usuario" />
+          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.UsuarioGrupo" FromRole="Grupo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Tarea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripción" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Detalle" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="Tipo" Relationship="PlanningDBModel.fkTareaTipoID" FromRole="Tarea" ToRole="Tipo_Tarea" />
+        </EntityType>
+        <EntityType Name="Tarea_Detalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TareaID" Type="Int32" Nullable="false" />
+          <Property Name="FechaIni" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaFin" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TiempoLimite" Relationship="PlanningDBModel.fkDetalleTiempoTareaID" FromRole="Tarea_Detalle" ToRole="Detalle_Tiempo" />
+          <NavigationProperty Name="Tarea" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea_Detalle" ToRole="Tarea" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" FromRole="Tarea_Detalle" ToRole="TareaAsignadas" />
+        </EntityType>
+        <EntityType Name="TareaAsignadas">
+          <Key>
+            <PropertyRef Name="DetalleID" />
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="DetalleID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Detalle" Relationship="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" FromRole="TareaAsignadas" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.FK_TareaAsignadas_Usuario" FromRole="TareaAsignadas" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Tipo_Tarea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tareas" Relationship="PlanningDBModel.fkTareaTipoID" FromRole="Tipo_Tarea" ToRole="Tarea" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Nick" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArchivoConf" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Grupo" Relationship="PlanningDBModel.FK_Grupo_Usuario" FromRole="Usuario" ToRole="Grupo" />
+          <NavigationProperty Name="Tareas" Relationship="PlanningDBModel.FK_TareaAsignadas_Usuario" FromRole="Usuario" ToRole="TareaAsignadas" />
+          <NavigationProperty Name="Grupos" Relationship="PlanningDBModel.UsuarioGrupo" FromRole="Usuario" ToRole="Grupo" />
+          <NavigationProperty Name="Roles" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="fkDetalleTiempoTareaID">
+          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PlanningDBModel.Detalle_Tiempo" Role="Detalle_Tiempo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea_Detalle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Detalle_Tiempo">
+              <PropertyRef Name="TareaDetalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grupo_Usuario">
+          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="PlanningDBModel.Grupo" Role="Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="CreadorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkDetalleTareaID">
+          <End Type="PlanningDBModel.Tarea" Role="Tarea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tarea_Detalle">
+              <PropertyRef Name="TareaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTareaTipoID">
+          <End Type="PlanningDBModel.Tipo_Tarea" Role="Tipo_Tarea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PlanningDBModel.Tarea" Role="Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Tarea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="TipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TareaAsignadas_Tarea_Detalle">
+          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PlanningDBModel.TareaAsignadas" Role="TareaAsignadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea_Detalle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TareaAsignadas">
+              <PropertyRef Name="DetalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TareaAsignadas_Usuario">
+          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PlanningDBModel.TareaAsignadas" Role="TareaAsignadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TareaAsignadas">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioGrupo">
+          <End Type="PlanningDBModel.Grupo" Role="Grupo" Multiplicity="*" />
+          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
+        </Association>
+        <Association Name="RolUsuario">
+          <End Type="PlanningDBModel.Rol" Role="Rol" Multiplicity="*" />
+          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlanningDBModelStoreContainer" CdmEntityContainer="PlanningOther">
+          <EntitySetMapping Name="Detalle_Tiempo">
+            <EntityTypeMapping TypeName="PlanningDBModel.Detalle_Tiempo">
+              <MappingFragment StoreEntitySet="Detalle_Tiempo">
+                <ScalarProperty Name="FechaLimite" ColumnName="FechaLimite" />
+                <ScalarProperty Name="TareaDetalleID" ColumnName="TareaDetalleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupo">
+            <EntityTypeMapping TypeName="PlanningDBModel.Grupo">
+              <MappingFragment StoreEntitySet="Grupo">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadorID" ColumnName="CreadorID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="PlanningDBModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarea">
+            <EntityTypeMapping TypeName="PlanningDBModel.Tarea">
+              <MappingFragment StoreEntitySet="Tarea">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoID" ColumnName="TipoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarea_Detalle">
+            <EntityTypeMapping TypeName="PlanningDBModel.Tarea_Detalle">
+              <MappingFragment StoreEntitySet="Tarea_Detalle">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaIni" ColumnName="FechaIni" />
+                <ScalarProperty Name="TareaID" ColumnName="TareaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TareaAsignadas">
+            <EntityTypeMapping TypeName="PlanningDBModel.TareaAsignadas">
+              <MappingFragment StoreEntitySet="TareaAsignadas">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="DetalleID" ColumnName="DetalleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Tarea">
+            <EntityTypeMapping TypeName="PlanningDBModel.Tipo_Tarea">
+              <MappingFragment StoreEntitySet="Tipo_Tarea">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PlanningDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ArchivoConf" ColumnName="ArchivoConf" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Nick" ColumnName="Nick" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UsuarioGrupo" TypeName="PlanningDBModel.UsuarioGrupo" StoreEntitySet="UsuarioGrupo">
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="ID" ColumnName="UsuarioID" />
+            </EndProperty>
+            <EndProperty Name="Grupo">
+              <ScalarProperty Name="ID" ColumnName="GrupoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RolUsuario" TypeName="PlanningDBModel.RolUsuario" StoreEntitySet="RolUsuario">
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="ID" ColumnName="UsuarioID" />
+            </EndProperty>
+            <EndProperty Name="Rol">
+              <ScalarProperty Name="ID" ColumnName="RolID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

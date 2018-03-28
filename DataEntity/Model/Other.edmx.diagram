@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ff3ba3c8c754733ba3bddef2a2649d2" Name="Diagram1">
+        <EntityTypeShape EntityType="PlanningDBModel.Detalle_Tiempo" Width="1.5" PointX="7.75" PointY="1.25" />
+        <EntityTypeShape EntityType="PlanningDBModel.Grupo" Width="1.5" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="PlanningDBModel.Rol" Width="1.5" PointX="0.875" PointY="1.625" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tarea" Width="1.5" PointX="5.375" PointY="4.375" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tarea_Detalle" Width="1.5" PointX="7.875" PointY="3.375" />
+        <EntityTypeShape EntityType="PlanningDBModel.TareaAsignadas" Width="1.5" PointX="5.625" PointY="1.125" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tipo_Tarea" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="PlanningDBModel.Usuario" Width="1.5" PointX="3.25" PointY="1.5" />
+        <AssociationConnector Association="PlanningDBModel.fkDetalleTiempoTareaID" />
+        <AssociationConnector Association="PlanningDBModel.FK_Grupo_Usuario" />
+        <AssociationConnector Association="PlanningDBModel.fkDetalleTareaID" />
+        <AssociationConnector Association="PlanningDBModel.fkTareaTipoID" />
+        <AssociationConnector Association="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" />
+        <AssociationConnector Association="PlanningDBModel.FK_TareaAsignadas_Usuario" />
+        <AssociationConnector Association="PlanningDBModel.UsuarioGrupo" />
+        <AssociationConnector Association="PlanningDBModel.RolUsuario" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

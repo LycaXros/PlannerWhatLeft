@@ -70,6 +70,45 @@
       <DependentUpon>PlanningDbModel.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Model\Detalle_Tiempo.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Grupo.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Other.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Other.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Other.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Other.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Other.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Rol.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tarea.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TareaAsignadas.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tarea_Detalle.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tipo_Tarea.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Usuario.cs">
+      <DependentUpon>Other.tt</DependentUpon>
+    </Compile>
     <Compile Include="PassEncode.cs" />
     <Compile Include="PlanningDbModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -114,6 +153,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="Model\Other.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Other.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Other.edmx.diagram">
+      <DependentUpon>Other.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="PlanningDbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -141,6 +187,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Model\Other.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Other.edmx</DependentUpon>
+      <LastGenOutput>Other.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Other.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Other.edmx</DependentUpon>
+      <LastGenOutput>Other.cs</LastGenOutput>
+    </Content>
     <Content Include="PlanningDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PlanningDbModel.edmx</DependentUpon>
