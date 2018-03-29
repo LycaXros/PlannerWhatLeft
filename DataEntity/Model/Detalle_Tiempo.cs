@@ -17,6 +17,6 @@ namespace DataEntity.Model
         public int TareaDetalleID { get; set; }
         public System.DateTime FechaLimite { get; set; }
     
-        public virtual Tarea_Detalle Tarea_Detalle { get; set; }
+        public virtual Tarea_Detalle Detalle { get; set; }
     }
 }

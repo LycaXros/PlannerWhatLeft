@@ -33,5 +33,6 @@ namespace DataEntity.Model
         public virtual DbSet<TareaAsignadas> TareaAsignadas { get; set; }
         public virtual DbSet<Tipo_Tarea> Tipo_Tarea { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
     }
 }

@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:WhatLeftPlanning.UserManagement"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="WhatLeftPlanning.UserManagement.LoginForm"
              mc:Ignorable="d" Width="637.594" Height="514.874">
-    <Window.DataContext>
-        <local:LoginFormViewModel />
-    </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="67*"/>

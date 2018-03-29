@@ -14,6 +14,8 @@ namespace WhatLeftPlanning.UserManagement
 {
     public class LoginFormViewModel : ViewModelBase
     {
+        private IMessageDialogService _messageDialogService;
+        private LoginForm _loginForm;
         #region Private members
 
         private IUserRepository _repo = null;
@@ -22,8 +24,11 @@ namespace WhatLeftPlanning.UserManagement
 
         #endregion
 
-        public LoginFormViewModel()
+        public LoginFormViewModel(IMessageDialogService messageDialogService,
+            LoginForm loginForm)
         {
+            _messageDialogService = messageDialogService;
+            _loginForm = loginForm;
             _repo = new UserRepository();
             CancelCommand = new RelayCommand(OnCancel);
             LoginCommand = new RelayCommand(OnLogin);
@@ -35,21 +40,24 @@ namespace WhatLeftPlanning.UserManagement
 
             if (result)
             {
-                MessageBox.Show("Usuario Valido");
+                _messageDialogService.ShowDialog("Usuario Valido","Mensaje");
 
-                var boostrapper = Bootstrapper.Instance();
+
+                var boostrapper = new Bootstrapper();
                 var container = boostrapper.Bootstrap();
                 var mainWindow = container.Resolve<MainWindow>();
-                var loginWindow = container.Resolve<LoginForm>();
 
-                loginWindow.Hide();
+
+                UserName = string.Empty;
+                Password = string.Empty;
+                _loginForm.Hide();
                 mainWindow.ShowDialog();
-                loginWindow.Visibility = Visibility.Visible;
-                loginWindow.Show();
+                _loginForm.Visibility = Visibility.Visible;
+                _loginForm.Show();
             }
             else
             {
-                MessageBox.Show("Usuario No valido");
+                _messageDialogService.ShowDialog("Usuario No valido", "Mensaje");
             }
         }
 

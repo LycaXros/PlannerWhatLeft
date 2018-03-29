@@ -96,7 +96,9 @@
     </Compile>
     <Compile Include="ItemViewModels.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\IMessageDialogService.cs" />
     <Compile Include="Services\IUserRepository.cs" />
+    <Compile Include="Services\MessageDialogService.cs" />
     <Compile Include="Services\UserRepository.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>

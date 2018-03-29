@@ -5,17 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataEntity;
+using DataEntity.DataTransform;
+using DataEntity.Model;
 
 namespace WhatLeftPlanning.Services
 {
     public class UserRepository : IUserRepository
     {
-        public PlanningDBEntities _context = null;
+        public PlanningOther _context = null;
 
         public UserRepository()
         {
-            _context = new PlanningDBEntities();
+            _context = new PlanningOther();
         }
 
         public async Task<Usuario> AñadirUsuarioAsync(Usuario user)
@@ -65,9 +66,9 @@ namespace WhatLeftPlanning.Services
 
             try
             {
-                var dataConfig = (DataEntity.XmlConfig.DataSection)System.Configuration.ConfigurationManager
-                        .GetSection("customData/dataEntry");
-                var savedPass = dataConfig.Entry.Value;
+                var dataConfig = System.Configuration.ConfigurationManager
+                        .GetSection("customData");
+                var savedPass = (dataConfig as DataEntity.XmlConfig.DataSection).Instances["AdminCodPass"].Value;
 
             }
             catch (Exception ex)

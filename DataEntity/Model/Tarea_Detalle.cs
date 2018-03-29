@@ -17,7 +17,7 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tarea_Detalle()
         {
-            this.Usuario = new HashSet<TareaAsignadas>();
+            this.Usuarios = new HashSet<TareaAsignadas>();
         }
     
         public int ID { get; set; }
@@ -26,9 +26,9 @@ namespace DataEntity.Model
         public Nullable<System.DateTime> FechaFin { get; set; }
         public string Estado { get; set; }
     
-        public virtual Detalle_Tiempo TiempoLimite { get; set; }
+        public virtual Detalle_Tiempo Limite { get; set; }
         public virtual Tarea Tarea { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TareaAsignadas> Usuario { get; set; }
+        public virtual ICollection<TareaAsignadas> Usuarios { get; set; }
     }
 }

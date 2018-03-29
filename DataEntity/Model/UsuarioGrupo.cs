@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataEntity
+namespace DataEntity.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Detalle_Tiempo
+    public partial class UsuarioGrupo
     {
-        public int TareaDetalleID { get; set; }
-        public System.DateTime FechaLimite { get; set; }
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string TipoIntegrante { get; set; }
     
-        public virtual Tarea_Detalle Tarea_Detalle { get; set; }
+        public virtual Grupo Grupo { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
