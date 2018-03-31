@@ -7,14 +7,9 @@ using DataEntity.Model;
 
 namespace WhatLeftPlanning.Services
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepositorio<Usuario>
     {
-        Task<List<Usuario>> ObtenerListaUsuariosAsync();
         Task<bool> ValidarCredencialesAsync(string nick, string pass);
-
-        Task<Usuario> ObtenerUsuarioAsync(int id);
-        Task<Usuario> AñadirUsuarioAsync(Usuario user);
-        Task<Usuario> ModificarUsuarioAsync(Usuario user);
-        Task EliminarUsuarioAsync(int id);
+        Task<Usuario> GetUser(string nick, string pass);
     }
 }

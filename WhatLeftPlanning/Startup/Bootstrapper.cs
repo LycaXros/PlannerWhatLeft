@@ -21,6 +21,9 @@ namespace WhatLeftPlanning.Startup
             builder.RegisterType<MainViewModel>().AsSelf();
 
             builder.RegisterType<MessageDialogService>().As<IMessageDialogService>();
+            builder.RegisterType<UnidadTrabajo>().As<IUnidadTrabajo>();
+
+            builder.RegisterType<DataEntity.Model.PlanningOther>().AsSelf();
 
             builder.RegisterType<LoginForm>().AsSelf().SingleInstance();
             builder.RegisterType<LoginFormViewModel>().AsSelf().SingleInstance();

@@ -22,7 +22,8 @@ namespace WhatLeftPlanning.UserManagement
     {
         public LoginForm()
         {
-            DataContext = new LoginFormViewModel(new Services.MessageDialogService(), this);
+            DataContext = new LoginFormViewModel(new Services.MessageDialogService(), this
+                , new Services.UnidadTrabajo(new DataEntity.Model.PlanningOther()));
             InitializeComponent();
         }
     }

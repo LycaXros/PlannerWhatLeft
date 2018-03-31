@@ -10,58 +10,19 @@ using DataEntity.Model;
 
 namespace WhatLeftPlanning.Services
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repositorio<Usuario>, IUserRepository
     {
-        public PlanningOther _context = null;
-
-        public UserRepository()
+        public UserRepository(PlanningOther context)
+            :base(context)
         {
-            _context = new PlanningOther();
-        }
-
-        public async Task<Usuario> AñadirUsuarioAsync(Usuario user)
-        {
-            _context.Usuario.Add(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
-
-        public async Task EliminarUsuarioAsync(int id)
-        {
-            var user = _context.Usuario.FirstOrDefault(u => u.ID.Equals(id));
-            if (user != null)
-            {
-                _context.Usuario.Remove(user);
-            }
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Usuario> ModificarUsuarioAsync(Usuario user)
-        {
-            if (!_context.Usuario.Local.Any(c => c.ID == user.ID))
-            {
-                _context.Usuario.Attach(user);
-            }
-            _context.Entry(user).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return user;
-        }
-
-        public Task<Usuario> ObtenerUsuarioAsync(int id)
-        {
-            return _context.Usuario.FirstOrDefaultAsync(c => c.ID == id);
-        }
-
-        public Task<List<Usuario>> ObtenerListaUsuariosAsync()
-        {
-            return _context.Usuario.ToListAsync();
         }
 
         public async Task<bool> ValidarCredencialesAsync(string nick, string pass)
         {
 
-            var userExist = await _context.Usuario
+            var userExist = await dbSet
                 .AnyAsync(x => x.Nick.Equals(nick));
+
             var passConverted = Encriptador.Encriptar(pass);
 
             try
@@ -73,9 +34,10 @@ namespace WhatLeftPlanning.Services
             }
             catch (Exception ex)
             {   }
+
             if (userExist)
             {
-                var dbPass = await _context.Usuario
+                var dbPass = await dbSet
                     .Where(x => x.Nick.Equals(nick))
                     .Select(x => x.Contraseña)
                     .FirstAsync();
@@ -87,6 +49,19 @@ namespace WhatLeftPlanning.Services
             }
 
             return false;
+        }
+
+        public async Task<Usuario> GetUser(string nick, string pass)
+        {
+            var passConverted = Encriptador.Encriptar(pass);
+
+            return await  dbSet
+                .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && pass.Equals(Encriptador.Desencriptar(x.Contraseña)) );
+        }
+
+        public PlanningOther PlanningDb
+        {
+            get => Context as PlanningOther;
         }
     }
 }

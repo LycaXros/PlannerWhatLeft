@@ -18,25 +18,26 @@ namespace WhatLeftPlanning.UserManagement
         private LoginForm _loginForm;
         #region Private members
 
-        private IUserRepository _repo = null;
+        private IUnidadTrabajo _repo = null;
         private string _userNick;
         private string _password;
 
         #endregion
 
         public LoginFormViewModel(IMessageDialogService messageDialogService,
-            LoginForm loginForm)
+            LoginForm loginForm,
+            IUnidadTrabajo unidadTrabajo)
         {
             _messageDialogService = messageDialogService;
             _loginForm = loginForm;
-            _repo = new UserRepository();
+            _repo = unidadTrabajo;
             CancelCommand = new RelayCommand(OnCancel);
             LoginCommand = new RelayCommand(OnLogin);
         }
 
         private async void OnLogin()
         {
-            bool result = await _repo.ValidarCredencialesAsync(_userNick, _password);
+            bool result = await _repo.Usuarios.ValidarCredencialesAsync(_userNick, _password);
 
             if (result)
             {
@@ -47,7 +48,9 @@ namespace WhatLeftPlanning.UserManagement
                 var container = boostrapper.Bootstrap();
                 var mainWindow = container.Resolve<MainWindow>();
 
-
+                var user = await _repo.Usuarios.GetUser(_userNick, _password);
+                DatosEstaticos.CurrentUser = user;
+                
                 UserName = string.Empty;
                 Password = string.Empty;
                 _loginForm.Hide();
@@ -57,13 +60,13 @@ namespace WhatLeftPlanning.UserManagement
             }
             else
             {
-                _messageDialogService.ShowDialog("Usuario No valido", "Mensaje");
+                _messageDialogService.ShowDialog("Usuario No valido, Contraseña Incorrecta", "Mensaje");
             }
         }
 
         private void OnCancel()
         {
-            System.Windows.MessageBox.Show("Cerrando Aplicacion", "Mensaje urgente");
+           _messageDialogService.ShowDialog("Cerrando Aplicacion", "Mensaje urgente");
             System.Windows.Application.Current.Shutdown();
         }
 

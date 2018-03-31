@@ -97,13 +97,18 @@
     <Compile Include="ItemViewModels.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\IMessageDialogService.cs" />
+    <Compile Include="Services\IRepositorio.cs" />
+    <Compile Include="Services\IUnidadTrabajo.cs" />
     <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="Services\MessageDialogService.cs" />
+    <Compile Include="Services\Repositorio.cs" />
+    <Compile Include="Services\UnidadTrabajo.cs" />
     <Compile Include="Services\UserRepository.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startup\Bootstrapper.cs" />
+    <Compile Include="Startup\DatosEstaticos.cs" />
     <Compile Include="UserManagement\LoginForm.xaml.cs">
       <DependentUpon>LoginForm.xaml</DependentUpon>
     </Compile>
