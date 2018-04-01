@@ -56,7 +56,7 @@ namespace WhatLeftPlanning.Services
             var passConverted = Encriptador.Encriptar(pass);
 
             return await  dbSet
-                .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && pass.Equals(Encriptador.Desencriptar(x.Contraseña)) );
+                .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && passConverted.Equals(x.Contraseña) );
         }
 
         public PlanningOther PlanningDb

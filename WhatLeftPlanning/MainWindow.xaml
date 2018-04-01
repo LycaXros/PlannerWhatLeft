@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Window.DataContext>
-        <local:MainViewModel/>
+        <local:MainViewModel />
     </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>

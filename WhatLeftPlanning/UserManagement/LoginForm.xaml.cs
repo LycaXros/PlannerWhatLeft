@@ -20,11 +20,15 @@ namespace WhatLeftPlanning.UserManagement
     /// </summary>
     public partial class LoginForm : Window
     {
+        private LoginFormViewModel _loginFormViewModel;
+
         public LoginForm()
         {
-            DataContext = new LoginFormViewModel(new Services.MessageDialogService(), this
-                , new Services.UnidadTrabajo(new DataEntity.Model.PlanningOther()));
             InitializeComponent();
+            _loginFormViewModel = new LoginFormViewModel(this,
+                new Services.UnidadTrabajo(new DataEntity.Model.PlanningOther()) );
+
+            DataContext = _loginFormViewModel;
         }
     }
 }

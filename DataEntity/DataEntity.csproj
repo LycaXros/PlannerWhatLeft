@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransform\Constantes.cs" />
     <Compile Include="Model\Detalle_Tiempo.cs">
       <DependentUpon>Other.tt</DependentUpon>
     </Compile>

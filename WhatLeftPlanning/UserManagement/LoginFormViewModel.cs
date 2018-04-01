@@ -12,28 +12,19 @@ using Autofac;
 
 namespace WhatLeftPlanning.UserManagement
 {
-    public class LoginFormViewModel : ViewModelBase
+    public class LoginFormViewModel : ViewModelBase, ISupportServices
     {
-        private IMessageDialogService _messageDialogService;
-        private LoginForm _loginForm;
+
         #region Private members
+        private LoginForm _loginForm;
 
         private IUnidadTrabajo _repo = null;
         private string _userNick;
         private string _password;
+        private IServiceContainer _serviceContainer;
 
         #endregion
-
-        public LoginFormViewModel(IMessageDialogService messageDialogService,
-            LoginForm loginForm,
-            IUnidadTrabajo unidadTrabajo)
-        {
-            _messageDialogService = messageDialogService;
-            _loginForm = loginForm;
-            _repo = unidadTrabajo;
-            CancelCommand = new RelayCommand(OnCancel);
-            LoginCommand = new RelayCommand(OnLogin);
-        }
+        #region Private Functions
 
         private async void OnLogin()
         {
@@ -41,16 +32,17 @@ namespace WhatLeftPlanning.UserManagement
 
             if (result)
             {
-                _messageDialogService.ShowDialog("Usuario Valido","Mensaje");
+                //_messageDialogService.ShowDialog("Usuario Valido","Mensaje");
+                MessageBoxService.ShowMessage("Usuario Valido", "Mensaje");
 
+                var user = await _repo.Usuarios.GetUser(_userNick, _password);
+                DatosEstaticos.CurrentUser = user;
 
                 var boostrapper = new Bootstrapper();
                 var container = boostrapper.Bootstrap();
                 var mainWindow = container.Resolve<MainWindow>();
 
-                var user = await _repo.Usuarios.GetUser(_userNick, _password);
-                DatosEstaticos.CurrentUser = user;
-                
+
                 UserName = string.Empty;
                 Password = string.Empty;
                 _loginForm.Hide();
@@ -60,14 +52,28 @@ namespace WhatLeftPlanning.UserManagement
             }
             else
             {
-                _messageDialogService.ShowDialog("Usuario No valido, Contraseña Incorrecta", "Mensaje");
+               MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
             }
         }
 
         private void OnCancel()
         {
-           _messageDialogService.ShowDialog("Cerrando Aplicacion", "Mensaje urgente");
+            MessageBoxService.ShowMessage("Cerrando Aplicacion", "Mensaje urgente");
             System.Windows.Application.Current.Shutdown();
+        }
+
+        #endregion
+        protected virtual IMessageBoxService MessageBoxService => ServiceContainer.GetService<IMessageBoxService>();
+
+        public LoginFormViewModel(
+            LoginForm loginForm,
+            IUnidadTrabajo unidadTrabajo)
+        {
+            //_messageDialogService = messageDialogService;
+            _loginForm = loginForm;
+            _repo = unidadTrabajo;
+            CancelCommand = new RelayCommand(OnCancel);
+            LoginCommand = new RelayCommand(OnLogin);
         }
 
         public string UserName
@@ -84,5 +90,15 @@ namespace WhatLeftPlanning.UserManagement
 
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand LoginCommand { get; private set; }
+
+        public IServiceContainer ServiceContainer
+        {
+            get
+            {
+                if (_serviceContainer == null)
+                    _serviceContainer = new ServiceContainer(this);
+                return _serviceContainer;
+            }
+        }
     }
 }
