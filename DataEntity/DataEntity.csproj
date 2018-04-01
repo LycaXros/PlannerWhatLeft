@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -67,61 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransform\Constantes.cs" />
-    <Compile Include="Model\Detalle_Tiempo.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Grupo.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Other.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Other.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Other.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Other.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Other.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Rol.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tarea.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TareaAsignadas.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tarea_Detalle.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tipo_Tarea.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Usuario.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\UsuarioGrupo.cs">
-      <DependentUpon>Other.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataTransform\PassEncode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlConfig\DataSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Model\Other.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Other.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model\Other.edmx.diagram">
-      <DependentUpon>Other.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,16 +91,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\Other.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Other.edmx</DependentUpon>
-      <LastGenOutput>Other.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Other.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Other.edmx</DependentUpon>
-      <LastGenOutput>Other.cs</LastGenOutput>
-    </Content>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
