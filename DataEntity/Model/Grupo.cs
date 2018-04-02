@@ -17,7 +17,7 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Grupo()
         {
-            this.UsuarioGrupo = new HashSet<UsuarioGrupo>();
+            this.UsuariosRef = new HashSet<UsuarioGrupo>();
         }
     
         public int ID { get; set; }
@@ -26,6 +26,6 @@ namespace DataEntity.Model
         public System.DateTime FechaCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuarioGrupo> UsuarioGrupo { get; set; }
+        public virtual ICollection<UsuarioGrupo> UsuariosRef { get; set; }
     }
 }

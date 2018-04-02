@@ -38,11 +38,11 @@ namespace WhatLeftPlanning.Services
             if (userExist)
             {
                 var dbPass = await dbSet
-                    .Where(x => x.Nick.Equals(nick))
-                    .Select(x => x.Contraseña)
-                    .FirstAsync();
+                    //.Where(x => x.Nick.Equals(nick))
+                    //.Select(x => x.Contraseña)
+                    .FirstAsync(x => x.Nick.Equals(nick));
 
-                var decryptedPass = Encriptador.Desencriptar(dbPass);
+                var decryptedPass = Encriptador.Desencriptar(dbPass.Contraseña);
                 return pass.Equals(decryptedPass);
 
                 //&& x.Contraseña.Equals(pass)
