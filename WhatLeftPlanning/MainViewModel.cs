@@ -30,7 +30,7 @@ namespace WhatLeftPlanning
             var user = DatosEstaticos.CurrentUser;
 
             List<string> roles = new List<string>();
-            foreach (var item in user.Roles)
+            foreach (var item in user.Rol)
             {
                 roles.Add(item.Nombre);
             }
