@@ -59,7 +59,11 @@
             <dxg:GridColumn IsSmart="True" FieldName="Nombre" />
             <dxg:GridColumn IsSmart="True" FieldName="Apellido" />
             <dxg:GridColumn IsSmart="True" FieldName="Nick" />
-            <dxg:GridColumn IsSmart="True" FieldName="Contraseña" Header="Contraseña" />
+            <dxg:GridColumn FieldName="Contraseña" IsSmart="True" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource PassConverter}"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
             <dxg:GridColumn IsSmart="True" FieldName="ArchivoConf" />
         </dxg:GridControl>
     </DockPanel>
