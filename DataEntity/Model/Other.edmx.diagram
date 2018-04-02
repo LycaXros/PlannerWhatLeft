@@ -4,23 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0ff3ba3c8c754733ba3bddef2a2649d2" Name="Diagram1">
-        <EntityTypeShape EntityType="PlanningDBModel.Detalle_Tiempo" Width="1.5" PointX="0.5" PointY="6.625" />
-        <EntityTypeShape EntityType="PlanningDBModel.Grupo" Width="1.5" PointX="8.125" PointY="1.375" />
-        <EntityTypeShape EntityType="PlanningDBModel.Rol" Width="1.5" PointX="0.5" PointY="2" />
-        <EntityTypeShape EntityType="PlanningDBModel.Tarea" Width="1.5" PointX="5.75" PointY="3.875" />
-        <EntityTypeShape EntityType="PlanningDBModel.Tarea_Detalle" Width="1.5" PointX="3.375" PointY="6.25" />
-        <EntityTypeShape EntityType="PlanningDBModel.TareaAsignadas" Width="1.5" PointX="0.5" PointY="4.375" />
-        <EntityTypeShape EntityType="PlanningDBModel.Tipo_Tarea" Width="1.5" PointX="8.125" PointY="4" />
-        <EntityTypeShape EntityType="PlanningDBModel.Usuario" Width="1.5" PointX="3.125" PointY="1.5" />
-        <EntityTypeShape EntityType="PlanningDBModel.UsuarioGrupo" Width="1.5" PointX="5.75" PointY="1.5" />
-        <AssociationConnector Association="PlanningDBModel.fkDetalleTiempoTareaID" />
-        <AssociationConnector Association="PlanningDBModel.FK_UsuarioGrupo_Grupo" />
+      <Diagram DiagramId="c637bafe0a5a458db9659aa6090c3abf" Name="Diagram1">
+        <EntityTypeShape EntityType="PlanningDBModel.Grupo" Width="1.5" PointX="8.375" PointY="0.625" />
+        <EntityTypeShape EntityType="PlanningDBModel.Rol" Width="1.5" PointX="6.125" PointY="0.625" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tarea" Width="1.5" PointX="3.75" PointY="0.5" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tarea_Detalle" Width="1.5" PointX="1.375" PointY="3.125" />
+        <EntityTypeShape EntityType="PlanningDBModel.Tipo_Tarea" Width="1.5" PointX="1.125" PointY="0.5" />
+        <EntityTypeShape EntityType="PlanningDBModel.Usuario" Width="1.5" PointX="4" PointY="3.5" />
+        <EntityTypeShape EntityType="PlanningDBModel.UsuarioGrupo" Width="1.5" PointX="7.75" PointY="4" />
+        <AssociationConnector Association="PlanningDBModel.FK__UsuarioGr__Grupo__4CA06362" />
         <AssociationConnector Association="PlanningDBModel.fkDetalleTareaID" />
         <AssociationConnector Association="PlanningDBModel.fkTareaTipoID" />
-        <AssociationConnector Association="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" />
-        <AssociationConnector Association="PlanningDBModel.FK_TareaAsignadas_Usuario" />
-        <AssociationConnector Association="PlanningDBModel.FK_UsuarioGrupo_Usuario" />
+        <AssociationConnector Association="PlanningDBModel.FK__UsuarioGr__Usuar__4D94879B" />
+        <AssociationConnector Association="PlanningDBModel.TareaAsignadas" />
         <AssociationConnector Association="PlanningDBModel.RolUsuario" />
       </Diagram>
     </edmx:Diagrams>

@@ -5,19 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PlanningDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Detalle_Tiempo">
-          <Key>
-            <PropertyRef Name="TareaDetalleID" />
-          </Key>
-          <Property Name="TareaDetalleID" Type="int" Nullable="false" />
-          <Property Name="FechaLimite" Type="date" Nullable="false" />
-        </EntityType>
         <EntityType Name="Grupo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
@@ -45,7 +39,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="TipoID" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Descripción" Type="nvarchar" MaxLength="250" />
-          <Property Name="Estado" Type="varchar" MaxLength="2" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Tarea_Detalle">
           <Key>
@@ -59,12 +53,11 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
         </EntityType>
         <EntityType Name="TareaAsignadas">
           <Key>
-            <PropertyRef Name="DetalleID" />
+            <PropertyRef Name="TareaID" />
             <PropertyRef Name="UsuarioID" />
           </Key>
-          <Property Name="DetalleID" Type="int" Nullable="false" />
+          <Property Name="TareaID" Type="int" Nullable="false" />
           <Property Name="UsuarioID" Type="int" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="Tipo_Tarea">
           <Key>
@@ -81,7 +74,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="Nombre" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Apellido" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Nick" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Contraseña" Type="nvarchar(max)" />
+          <Property Name="Contraseña" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ArchivoConf" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
@@ -93,6 +86,30 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="UsuarioID" Type="int" Nullable="false" />
           <Property Name="TipoIntegrante" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <Association Name="FK__UsuarioGr__Grupo__4CA06362">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="GrupoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGr__Usuar__4D94879B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RolUsuario_Rol">
           <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
           <End Role="RolUsuario" Type="Self.RolUsuario" Multiplicity="*" />
@@ -117,7 +134,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TareaAsignadas_Tarea_Detalle">
+        <Association Name="FK_TareaAsignadas_Tarea">
           <End Role="Tarea_Detalle" Type="Self.Tarea_Detalle" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -127,7 +144,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TareaAsignadas">
-              <PropertyRef Name="DetalleID" />
+              <PropertyRef Name="TareaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -141,32 +158,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TareaAsignadas">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioGrupo_Grupo">
-          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Grupo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UsuarioGrupo">
-              <PropertyRef Name="GrupoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioGrupo_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UsuarioGrupo">
               <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
@@ -185,20 +176,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fkDetalleTiempoTareaID">
-          <End Role="Tarea_Detalle" Type="Self.Tarea_Detalle" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Detalle_Tiempo" Type="Self.Detalle_Tiempo" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Tarea_Detalle">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Detalle_Tiempo">
-              <PropertyRef Name="TareaDetalleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fkTareaTipoID">
           <End Role="Tipo_Tarea" Type="Self.Tipo_Tarea" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -214,7 +191,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PlanningDBModelStoreContainer">
-          <EntitySet Name="Detalle_Tiempo" EntityType="Self.Detalle_Tiempo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarea" EntityType="Self.Tarea" Schema="dbo" store:Type="Tables" />
@@ -229,6 +205,14 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
     [RolUsuario].[RolID] AS [RolID]
     FROM [dbo].[RolUsuario] AS [RolUsuario]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__UsuarioGr__Grupo__4CA06362" Association="Self.FK__UsuarioGr__Grupo__4CA06362">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGr__Usuar__4D94879B" Association="Self.FK__UsuarioGr__Usuar__4D94879B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
           <AssociationSet Name="FK_RolUsuario_Rol" Association="Self.FK_RolUsuario_Rol">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="RolUsuario" EntitySet="RolUsuario" />
@@ -237,7 +221,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="RolUsuario" EntitySet="RolUsuario" />
           </AssociationSet>
-          <AssociationSet Name="FK_TareaAsignadas_Tarea_Detalle" Association="Self.FK_TareaAsignadas_Tarea_Detalle">
+          <AssociationSet Name="FK_TareaAsignadas_Tarea" Association="Self.FK_TareaAsignadas_Tarea">
             <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
             <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
           </AssociationSet>
@@ -245,21 +229,9 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
           </AssociationSet>
-          <AssociationSet Name="FK_UsuarioGrupo_Grupo" Association="Self.FK_UsuarioGrupo_Grupo">
-            <End Role="Grupo" EntitySet="Grupo" />
-            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuarioGrupo_Usuario" Association="Self.FK_UsuarioGrupo_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
-          </AssociationSet>
           <AssociationSet Name="fkDetalleTareaID" Association="Self.fkDetalleTareaID">
             <End Role="Tarea" EntitySet="Tarea" />
             <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
-          </AssociationSet>
-          <AssociationSet Name="fkDetalleTiempoTareaID" Association="Self.fkDetalleTiempoTareaID">
-            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
-            <End Role="Detalle_Tiempo" EntitySet="Detalle_Tiempo" />
           </AssociationSet>
           <AssociationSet Name="fkTareaTipoID" Association="Self.fkTareaTipoID">
             <End Role="Tipo_Tarea" EntitySet="Tipo_Tarea" />
@@ -271,20 +243,14 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
     <edmx:ConceptualModels>
       <Schema Namespace="PlanningDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PlanningOther" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Detalle_Tiempo" EntityType="PlanningDBModel.Detalle_Tiempo" />
           <EntitySet Name="Grupo" EntityType="PlanningDBModel.Grupo" />
           <EntitySet Name="Rol" EntityType="PlanningDBModel.Rol" />
           <EntitySet Name="Tarea" EntityType="PlanningDBModel.Tarea" />
           <EntitySet Name="Tarea_Detalle" EntityType="PlanningDBModel.Tarea_Detalle" />
-          <EntitySet Name="TareaAsignadas" EntityType="PlanningDBModel.TareaAsignadas" />
           <EntitySet Name="Tipo_Tarea" EntityType="PlanningDBModel.Tipo_Tarea" />
           <EntitySet Name="Usuario" EntityType="PlanningDBModel.Usuario" />
           <EntitySet Name="UsuarioGrupo" EntityType="PlanningDBModel.UsuarioGrupo" />
-          <AssociationSet Name="fkDetalleTiempoTareaID" Association="PlanningDBModel.fkDetalleTiempoTareaID">
-            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
-            <End Role="Detalle_Tiempo" EntitySet="Detalle_Tiempo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuarioGrupo_Grupo" Association="PlanningDBModel.FK_UsuarioGrupo_Grupo">
+          <AssociationSet Name="FK__UsuarioGr__Grupo__4CA06362" Association="PlanningDBModel.FK__UsuarioGr__Grupo__4CA06362">
             <End Role="Grupo" EntitySet="Grupo" />
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
           </AssociationSet>
@@ -296,39 +262,28 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Tipo_Tarea" EntitySet="Tipo_Tarea" />
             <End Role="Tarea" EntitySet="Tarea" />
           </AssociationSet>
-          <AssociationSet Name="FK_TareaAsignadas_Tarea_Detalle" Association="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle">
-            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
-            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TareaAsignadas_Usuario" Association="PlanningDBModel.FK_TareaAsignadas_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="TareaAsignadas" EntitySet="TareaAsignadas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuarioGrupo_Usuario" Association="PlanningDBModel.FK_UsuarioGrupo_Usuario">
+          <AssociationSet Name="FK__UsuarioGr__Usuar__4D94879B" Association="PlanningDBModel.FK__UsuarioGr__Usuar__4D94879B">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="TareaAsignadas" Association="PlanningDBModel.TareaAsignadas">
+            <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <AssociationSet Name="RolUsuario" Association="PlanningDBModel.RolUsuario">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Detalle_Tiempo">
-          <Key>
-            <PropertyRef Name="TareaDetalleID" />
-          </Key>
-          <Property Name="TareaDetalleID" Type="Int32" Nullable="false" />
-          <Property Name="FechaLimite" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Detalle" Relationship="PlanningDBModel.fkDetalleTiempoTareaID" FromRole="Detalle_Tiempo" ToRole="Tarea_Detalle" />
-        </EntityType>
         <EntityType Name="Grupo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.FK_UsuarioGrupo_Grupo" FromRole="Grupo" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="UsuarioGrupo" Relationship="PlanningDBModel.FK__UsuarioGr__Grupo__4CA06362" FromRole="Grupo" ToRole="UsuarioGrupo" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -336,7 +291,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tarea">
           <Key>
@@ -346,9 +301,9 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="TipoID" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descripción" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Detalle" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea" ToRole="Tarea_Detalle" />
-          <NavigationProperty Name="Tipo" Relationship="PlanningDBModel.fkTareaTipoID" FromRole="Tarea" ToRole="Tipo_Tarea" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tarea_Detalle" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="Tipo_Tarea" Relationship="PlanningDBModel.fkTareaTipoID" FromRole="Tarea" ToRole="Tipo_Tarea" />
         </EntityType>
         <EntityType Name="Tarea_Detalle">
           <Key>
@@ -359,20 +314,8 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="FechaIni" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FechaFin" Type="DateTime" Precision="0" />
           <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Limite" Relationship="PlanningDBModel.fkDetalleTiempoTareaID" FromRole="Tarea_Detalle" ToRole="Detalle_Tiempo" />
           <NavigationProperty Name="Tarea" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea_Detalle" ToRole="Tarea" />
-          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" FromRole="Tarea_Detalle" ToRole="TareaAsignadas" />
-        </EntityType>
-        <EntityType Name="TareaAsignadas">
-          <Key>
-            <PropertyRef Name="DetalleID" />
-            <PropertyRef Name="UsuarioID" />
-          </Key>
-          <Property Name="DetalleID" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Detalle" Relationship="PlanningDBModel.FK_TareaAsignadas_Tarea_Detalle" FromRole="TareaAsignadas" ToRole="Tarea_Detalle" />
-          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.FK_TareaAsignadas_Usuario" FromRole="TareaAsignadas" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Tarea_Detalle" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tipo_Tarea">
           <Key>
@@ -390,11 +333,11 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Apellido" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Nick" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Contraseña" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ArchivoConf" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Asignaciones" Relationship="PlanningDBModel.FK_TareaAsignadas_Usuario" FromRole="Usuario" ToRole="TareaAsignadas" />
-          <NavigationProperty Name="Grupos" Relationship="PlanningDBModel.FK_UsuarioGrupo_Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
-          <NavigationProperty Name="Roles" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="UsuarioGrupo" Relationship="PlanningDBModel.FK__UsuarioGr__Usuar__4D94879B" FromRole="Usuario" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="Tarea_Detalle" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Usuario" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="Rol" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -404,27 +347,11 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="GrupoID" Type="Int32" Nullable="false" />
           <Property Name="UsuarioID" Type="Int32" Nullable="false" />
           <Property Name="TipoIntegrante" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Grupo" Relationship="PlanningDBModel.FK_UsuarioGrupo_Grupo" FromRole="UsuarioGrupo" ToRole="Grupo" />
-          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.FK_UsuarioGrupo_Usuario" FromRole="UsuarioGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="Grupo" Relationship="PlanningDBModel.FK__UsuarioGr__Grupo__4CA06362" FromRole="UsuarioGrupo" ToRole="Grupo" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.FK__UsuarioGr__Usuar__4D94879B" FromRole="UsuarioGrupo" ToRole="Usuario" />
         </EntityType>
-        <Association Name="fkDetalleTiempoTareaID">
-          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PlanningDBModel.Detalle_Tiempo" Role="Detalle_Tiempo" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Tarea_Detalle">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Detalle_Tiempo">
-              <PropertyRef Name="TareaDetalleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioGrupo_Grupo">
-          <End Type="PlanningDBModel.Grupo" Role="Grupo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__UsuarioGr__Grupo__4CA06362">
+          <End Type="PlanningDBModel.Grupo" Role="Grupo" Multiplicity="1" />
           <End Type="PlanningDBModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grupo">
@@ -463,35 +390,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TareaAsignadas_Tarea_Detalle">
-          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PlanningDBModel.TareaAsignadas" Role="TareaAsignadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tarea_Detalle">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TareaAsignadas">
-              <PropertyRef Name="DetalleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TareaAsignadas_Usuario">
-          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PlanningDBModel.TareaAsignadas" Role="TareaAsignadas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TareaAsignadas">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioGrupo_Usuario">
+        <Association Name="FK__UsuarioGr__Usuar__4D94879B">
           <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="1" />
           <End Type="PlanningDBModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -503,28 +402,25 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="TareaAsignadas">
+          <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="*" />
+          <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
+        </Association>
         <Association Name="RolUsuario">
           <End Type="PlanningDBModel.Rol" Role="Rol" Multiplicity="*" />
           <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PlanningDBModelStoreContainer" CdmEntityContainer="PlanningOther">
-          <EntitySetMapping Name="Detalle_Tiempo">
-            <EntityTypeMapping TypeName="PlanningDBModel.Detalle_Tiempo">
-              <MappingFragment StoreEntitySet="Detalle_Tiempo">
-                <ScalarProperty Name="FechaLimite" ColumnName="FechaLimite" />
-                <ScalarProperty Name="TareaDetalleID" ColumnName="TareaDetalleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Grupo">
             <EntityTypeMapping TypeName="PlanningDBModel.Grupo">
               <MappingFragment StoreEntitySet="Grupo">
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -560,15 +456,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TareaAsignadas">
-            <EntityTypeMapping TypeName="PlanningDBModel.TareaAsignadas">
-              <MappingFragment StoreEntitySet="TareaAsignadas">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-                <ScalarProperty Name="DetalleID" ColumnName="DetalleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tipo_Tarea">
             <EntityTypeMapping TypeName="PlanningDBModel.Tipo_Tarea">
               <MappingFragment StoreEntitySet="Tipo_Tarea">
@@ -598,6 +485,14 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="TareaAsignadas" TypeName="PlanningDBModel.TareaAsignadas" StoreEntitySet="TareaAsignadas">
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="ID" ColumnName="UsuarioID" />
+            </EndProperty>
+            <EndProperty Name="Tarea_Detalle">
+              <ScalarProperty Name="ID" ColumnName="TareaID" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="RolUsuario" TypeName="PlanningDBModel.RolUsuario" StoreEntitySet="RolUsuario">
             <EndProperty Name="Usuario">
               <ScalarProperty Name="ID" ColumnName="UsuarioID" />

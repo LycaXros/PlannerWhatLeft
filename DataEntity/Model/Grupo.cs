@@ -17,14 +17,15 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Grupo()
         {
-            this.Usuarios = new HashSet<UsuarioGrupo>();
+            this.UsuarioGrupo = new HashSet<UsuarioGrupo>();
         }
     
         public int ID { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuarioGrupo> Usuarios { get; set; }
+        public virtual ICollection<UsuarioGrupo> UsuarioGrupo { get; set; }
     }
 }
