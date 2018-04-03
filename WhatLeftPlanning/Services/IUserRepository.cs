@@ -11,5 +11,7 @@ namespace WhatLeftPlanning.Services
     {
         Task<bool> ValidarCredencialesAsync(string nick, string pass);
         Task<Usuario> GetUser(string nick, string pass);
+
+        Task<IEnumerable<Tarea>> ObtenerTareasUsuarioActual();
     }
 }

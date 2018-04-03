@@ -1,0 +1,33 @@
+﻿<UserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:Model="clr-namespace:DataEntity.Model;assembly=DataEntity"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="WhatLeftPlanning.Views.ListaTareas"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type Model:PlanningOther}" Path="Tarea">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:EntitySimpleDataSource>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <ViewModels:ListaTareasViewModel/>
+    </UserControl.DataContext>
+    <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" 
+                     ItemsSource="{Binding Tareas}">
+        <dxg:GridControl.View>
+            <dxg:CardView AllowEditing="False"/>
+        </dxg:GridControl.View>
+        <dxg:GridColumn FieldName="Tipo.Nombre" Header="Tipo" IsSmart="True"/>
+        <dxg:GridColumn FieldName="ID" IsSmart="True"/>
+        <dxg:GridColumn FieldName="Nombre" IsSmart="True"/>
+        <dxg:GridColumn FieldName="Descripción" IsSmart="True"/>
+        <dxg:GridColumn FieldName="Estado" IsSmart="True" SortOrder="Ascending" SortIndex="0"/>
+    </dxg:GridControl>
+    <!--ItemsSource="{Binding Tareas}"-->
+</UserControl>

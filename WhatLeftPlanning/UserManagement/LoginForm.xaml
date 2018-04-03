@@ -7,9 +7,12 @@
         xmlns:services ="clr-namespace:WhatLeftPlanning.Services"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-        
-             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="WhatLeftPlanning.UserManagement.LoginForm"
-             mc:Ignorable="d" Width="637.594" Height="514.874">
+        xmlns:global ="clr-namespace:WhatLeftPlanning"  
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        x:Class="WhatLeftPlanning.UserManagement.LoginForm"
+        mc:Ignorable="d" Width="637.594" Height="514.874"
+        dx:DXSplashScreen.SplashScreenType="{x:Type global:StartSplash}"   >
+
     <dxmvvm:Interaction.Behaviors>
         <dxwui:WinUIMessageBoxService/>
     </dxmvvm:Interaction.Behaviors>
@@ -19,6 +22,7 @@
             <ColumnDefinition Width="507*"/>
             <ColumnDefinition Width="56*"/>
         </Grid.ColumnDefinitions>
+
         <dx:UniformStackPanel
             FocusManager.FocusedElement="{Binding ElementName=UserTbox}"
             Orientation="Vertical" Grid.Column="1" Margin="0,35,0,0">
@@ -37,6 +41,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Ingresar" Grid.Column="0" Command="{Binding LoginCommand}"/>
+                
                 <Button Content="Cancelar" Grid.Column="2" Command="{Binding CancelCommand}"/>
             </Grid>
         </dx:UniformStackPanel>

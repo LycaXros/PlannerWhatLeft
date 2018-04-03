@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataEntity.DataTransform;
 using DataEntity.Model;
+using WhatLeftPlanning.Startup;
 
 namespace WhatLeftPlanning.Services
 {
@@ -57,6 +58,17 @@ namespace WhatLeftPlanning.Services
 
             return await  dbSet
                 .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && passConverted.Equals(x.Contraseña) );
+        }
+
+        public async Task<IEnumerable<Tarea>> ObtenerTareasUsuarioActual()
+        {
+            var TareaDetalle = await
+                DatosEstaticos.CurrentUser.Tarea_Detalle
+                .Select(x => x.Tarea)
+                .AsQueryable()
+                .ToListAsync();
+
+            return TareaDetalle;
         }
 
         public PlanningOther PlanningDb

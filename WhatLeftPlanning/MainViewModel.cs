@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WhatLeftPlanning.Startup;
+using DevExpress.Xpf.Ribbon;
 
 namespace WhatLeftPlanning
 {
     public class MainViewModel : NavigationViewModelBase
     {
-        public ReadOnlyCollection<IHamburgerMenuItemViewModel> HamburgerMenuItems { get; }
-        public ReadOnlyCollection<IHamburgerMenuBottomBarItemViewModel> HamburgerMenuBottomBarItems { get; }
+        public RibbonControl RibbonControlBar { get; }
 
         public object HamburgerMenuSelectedItem
         {
@@ -20,8 +20,15 @@ namespace WhatLeftPlanning
 
         public MainViewModel()
         {
-            HamburgerMenuItems = new ReadOnlyCollection<IHamburgerMenuItemViewModel>(InitializeMenuItems());
-            HamburgerMenuBottomBarItems = new ReadOnlyCollection<IHamburgerMenuBottomBarItemViewModel>(InitializeBottomBarItems());
+            //    HamburgerMenuItems = new ReadOnlyCollection<IHamburgerMenuItemViewModel>(InitializeMenuItems());
+            //    HamburgerMenuBottomBarItems = new ReadOnlyCollection<IHamburgerMenuBottomBarItemViewModel>(InitializeBottomBarItems());
+            RibbonControlBar = new RibbonControl();
+            InitializeRibbonControlItems();
+            
+        }
+
+        private void InitializeRibbonControlItems()
+        {
         }
 
         protected virtual IList<IHamburgerMenuItemViewModel> InitializeMenuItems()

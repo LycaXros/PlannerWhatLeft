@@ -28,6 +28,7 @@ namespace WhatLeftPlanning.UserManagement
 
         private async void OnLogin()
         {
+            IsLogin = true;
             bool result = await _repo.Usuarios.ValidarCredencialesAsync(_userNick, _password);
 
             if (result)
@@ -54,6 +55,13 @@ namespace WhatLeftPlanning.UserManagement
             {
                MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
             }
+            IsLogin = false;
+        }
+
+
+        private bool CanLogin()
+        {
+            return !IsLogin;
         }
 
         private void OnCancel()
@@ -73,8 +81,22 @@ namespace WhatLeftPlanning.UserManagement
             _loginForm = loginForm;
             _repo = unidadTrabajo;
             CancelCommand = new RelayCommand(OnCancel);
-            LoginCommand = new RelayCommand(OnLogin);
+            LoginCommand = new RelayCommand(OnLogin, CanLogin);
+
+            IsLogin = false;
         }
+
+        private bool _isLogin;
+
+        public bool IsLogin
+        {
+            get { return _isLogin; }
+            set { SetProperty(ref _isLogin, value);
+
+                LoginCommand.RaiseCanExecuteChanged();
+            }
+        }
+
 
         public string UserName
         {

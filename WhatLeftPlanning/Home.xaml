@@ -3,9 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:views="clr-namespace:WhatLeftPlanning.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"> 
     <Grid>
-        <TextBlock Text="Home View" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <dxc:LoadingDecorator  
+            SplashScreenLocation="CenterContainer"
+            OwnerLock="Full"
+            BorderEffect="Default" BorderEffectColor="Green"
+            >
+            <dxc:LoadingDecorator.SplashScreenTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Prueba" FontSize="30" />
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </dxc:LoadingDecorator.SplashScreenTemplate>
+
+            <views:ListaTareas />
+        </dxc:LoadingDecorator>
     </Grid>
 </UserControl>

@@ -10,6 +10,7 @@ namespace WhatLeftPlanning
         public MainWindow()
         {
             InitializeComponent();
+            
         }
     }
 }
