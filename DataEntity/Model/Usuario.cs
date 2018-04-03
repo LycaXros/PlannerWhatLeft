@@ -17,8 +17,8 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Asignaciones = new HashSet<TareaAsignadas>();
-            this.Grupos = new HashSet<UsuarioGrupo>();
+            this.GruposRef = new HashSet<UsuarioGrupo>();
+            this.Tarea_Detalle = new HashSet<Tarea_Detalle>();
             this.Roles = new HashSet<Rol>();
         }
     
@@ -30,9 +30,9 @@ namespace DataEntity.Model
         public string ArchivoConf { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TareaAsignadas> Asignaciones { get; set; }
+        public virtual ICollection<UsuarioGrupo> GruposRef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuarioGrupo> Grupos { get; set; }
+        public virtual ICollection<Tarea_Detalle> Tarea_Detalle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rol> Roles { get; set; }
     }

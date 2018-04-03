@@ -17,7 +17,7 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tarea()
         {
-            this.Detalle = new HashSet<Tarea_Detalle>();
+            this.Detalles = new HashSet<Tarea_Detalle>();
         }
     
         public int ID { get; set; }
@@ -27,7 +27,7 @@ namespace DataEntity.Model
         public string Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tarea_Detalle> Detalle { get; set; }
+        public virtual ICollection<Tarea_Detalle> Detalles { get; set; }
         public virtual Tipo_Tarea Tipo { get; set; }
     }
 }

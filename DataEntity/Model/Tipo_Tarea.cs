@@ -17,13 +17,13 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tipo_Tarea()
         {
-            this.Tarea = new HashSet<Tarea>();
+            this.Tareas = new HashSet<Tarea>();
         }
     
         public int ID { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tarea> Tarea { get; set; }
+        public virtual ICollection<Tarea> Tareas { get; set; }
     }
 }
