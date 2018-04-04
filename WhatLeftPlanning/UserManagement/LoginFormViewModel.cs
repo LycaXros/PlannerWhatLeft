@@ -39,9 +39,7 @@ namespace WhatLeftPlanning.UserManagement
                 var user = await _repo.Usuarios.GetUser(_userNick, _password);
                 DatosEstaticos.CurrentUser = user;
 
-                var boostrapper = new Bootstrapper();
-                var container = boostrapper.Bootstrap();
-                var mainWindow = container.Resolve<MainWindow>();
+                var mainWindow = new MainWindow();
 
 
                 UserName = string.Empty;

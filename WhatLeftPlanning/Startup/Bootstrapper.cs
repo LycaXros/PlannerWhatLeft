@@ -1,37 +1,27 @@
 ﻿
-using Autofac;
+using DataEntity.Model;
+using System.Data.Entity;
+using Unity;
 using WhatLeftPlanning.Services;
 using WhatLeftPlanning.UserManagement;
 //using Prism.Events;
 
 namespace WhatLeftPlanning.Startup
 {
-    public class Bootstrapper
+    public static class Bootstrapper
     {
-        public Bootstrapper() { }
 
+        private static IUnityContainer _container;
 
-
-        public IContainer Bootstrap()
+        static Bootstrapper()
         {
-            var builder = new ContainerBuilder();
-
-
-            builder.RegisterType<MainWindow>().AsSelf().SingleInstance();
-            builder.RegisterType<MainViewModel>().AsSelf();
-
-            builder.RegisterType<MessageDialogService>().As<IMessageDialogService>();
-            builder.RegisterType<UnidadTrabajo>().As<IUnidadTrabajo>();
-
-            builder.RegisterType<DataEntity.Model.PlanningOther>().AsSelf();
-
-            builder.RegisterType<LoginForm>().AsSelf().SingleInstance();
-            builder.RegisterType<LoginFormViewModel>().AsSelf().SingleInstance();
-
-            return builder.Build();
-
-
-
+            _container = new UnityContainer();
+            _container.RegisterType<IUnidadTrabajo, UnidadTrabajo>(
+                    new Unity.Lifetime.ContainerControlledLifetimeManager());
+            _container.RegisterType<PlanningOther>(
+                new Unity.Lifetime.ContainerControlledLifetimeManager());
         }
+        public static IUnityContainer Container => _container;
     }
 }
+

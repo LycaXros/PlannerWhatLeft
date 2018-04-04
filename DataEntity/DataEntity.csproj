@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransform\Constantes.cs" />
+    <Compile Include="DataTransform\Extensiones.cs" />
     <Compile Include="DataTransform\PassEncode.cs" />
     <Compile Include="Model\Grupo.cs">
       <DependentUpon>Other.tt</DependentUpon>

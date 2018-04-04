@@ -1,4 +1,7 @@
-﻿using DevExpress.Xpf.Core;
+﻿using Autofac;
+using DevExpress.Xpf.Core;
+using Unity;
+using WhatLeftPlanning.Startup;
 
 namespace WhatLeftPlanning
 {
@@ -10,7 +13,7 @@ namespace WhatLeftPlanning
         public MainWindow()
         {
             InitializeComponent();
-            
+            DataContext = new MainViewModel(Bootstrapper.Container.Resolve<Services.UnidadTrabajo>() );
         }
     }
 }

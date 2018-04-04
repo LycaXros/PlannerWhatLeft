@@ -4,30 +4,68 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:WhatLeftPlanning.Converters"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:Model="clr-namespace:DataEntity.Model;assembly=DataEntity"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="WhatLeftPlanning.Views.ListaTareas"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="500">
+    <dxmvvm:Interaction.Behaviors>
+        <dx:DXMessageBoxService />
+    </dxmvvm:Interaction.Behaviors>
     <UserControl.Resources>
         <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type Model:PlanningOther}" Path="Tarea">
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
         </dx:EntitySimpleDataSource>
+        <conv:TareaEstadoConverter x:Key="EstadoConverter" />
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <ViewModels:ListaTareasViewModel/>
-    </UserControl.DataContext>
-    <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" 
-                     ItemsSource="{Binding Tareas}">
-        <dxg:GridControl.View>
-            <dxg:CardView AllowEditing="False"/>
-        </dxg:GridControl.View>
-        <dxg:GridColumn FieldName="Tipo.Nombre" Header="Tipo" IsSmart="True"/>
-        <dxg:GridColumn FieldName="ID" IsSmart="True"/>
-        <dxg:GridColumn FieldName="Nombre" IsSmart="True"/>
-        <dxg:GridColumn FieldName="Descripción" IsSmart="True"/>
-        <dxg:GridColumn FieldName="Estado" IsSmart="True" SortOrder="Ascending" SortIndex="0"/>
-    </dxg:GridControl>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadTareas"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Button Content="Editar"
+                    Command="{Binding EditarCommand}"
+                    />
+            <Button Content="Eliminar"
+                    Command="{Binding EliminarCommand}"
+                    />
+        </StackPanel>
+
+        <dx:LoadingDecorator Grid.Column="1"
+                             SplashScreenLocation="CenterContainer">
+            <dx:LoadingDecorator.SplashScreenTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Cargando Datos" FontSize="25"/>
+                        <TextBlock Text="{Binding}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </dx:LoadingDecorator.SplashScreenTemplate>
+
+            <dxg:GridControl  AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" 
+                     ItemsSource="{Binding Tareas}" SelectionMode="Cell"
+                     SelectedItem="{Binding SelectedTarea}">
+                <dxg:GridControl.View>
+                    <dxg:CardView AllowEditing="False" CardLayout="Rows" Margin="116,0,0,0"/>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="Tipo.Nombre" Header="Tipo" IsSmart="True" SortOrder="Descending" GroupIndex="0"/>
+                <dxg:GridColumn FieldName="Nombre" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Descripción" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Estado" IsSmart="True">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource EstadoConverter}"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+            </dxg:GridControl>
+        </dx:LoadingDecorator>
+    </Grid>
     <!--ItemsSource="{Binding Tareas}"-->
 </UserControl>

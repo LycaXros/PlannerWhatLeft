@@ -75,7 +75,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="Apellido" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Nick" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Contraseña" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ArchivoConf" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -256,7 +255,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <EntitySet Name="Tarea" EntityType="PlanningDBModel.Tarea" />
           <EntitySet Name="Tarea_Detalle" EntityType="PlanningDBModel.Tarea_Detalle" />
           <EntitySet Name="Tipo_Tarea" EntityType="PlanningDBModel.Tipo_Tarea" />
-          <EntitySet Name="Usuario" EntityType="PlanningDBModel.Usuario" />
           <EntitySet Name="UsuarioGrupo" EntityType="PlanningDBModel.UsuarioGrupo" />
           <AssociationSet Name="FK_UsuarioGrupo_Grupo" Association="PlanningDBModel.FK_UsuarioGrupo_Grupo">
             <End Role="Grupo" EntitySet="Grupo" />
@@ -270,6 +268,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Tipo_Tarea" EntitySet="Tipo_Tarea" />
             <End Role="Tarea" EntitySet="Tarea" />
           </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="PlanningDBModel.Usuario" />
           <AssociationSet Name="FK_UsuarioGrupo_Usuario" Association="PlanningDBModel.FK_UsuarioGrupo_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
@@ -282,7 +281,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Grupo">
           <Key>
             <PropertyRef Name="ID" />
@@ -299,7 +298,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tarea">
           <Key>
@@ -332,20 +331,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tareas" Relationship="PlanningDBModel.fkTareaTipoID" FromRole="Tipo_Tarea" ToRole="Tarea" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Nick" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ArchivoConf" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GruposRef" Relationship="PlanningDBModel.FK_UsuarioGrupo_Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
-          <NavigationProperty Name="Tarea_Detalle" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Usuario" ToRole="Tarea_Detalle" />
-          <NavigationProperty Name="Roles" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -400,6 +385,19 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Nick" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GrupoRef" Relationship="PlanningDBModel.FK_UsuarioGrupo_Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="Tarea" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Usuario" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="Roles" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
         <Association Name="FK_UsuarioGrupo_Usuario">
           <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -476,24 +474,23 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="PlanningDBModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="ArchivoConf" ColumnName="ArchivoConf" />
-                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
-                <ScalarProperty Name="Nick" ColumnName="Nick" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UsuarioGrupo">
             <EntityTypeMapping TypeName="PlanningDBModel.UsuarioGrupo">
               <MappingFragment StoreEntitySet="UsuarioGrupo">
                 <ScalarProperty Name="TipoIntegrante" ColumnName="TipoIntegrante" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PlanningDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Nick" ColumnName="Nick" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -513,7 +510,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               <ScalarProperty Name="ID" ColumnName="RolID" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

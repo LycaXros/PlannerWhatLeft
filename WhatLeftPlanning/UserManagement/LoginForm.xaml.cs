@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity;
+using WhatLeftPlanning.Startup;
 
 namespace WhatLeftPlanning.UserManagement
 {
@@ -26,7 +28,7 @@ namespace WhatLeftPlanning.UserManagement
         {
             InitializeComponent();
             _loginFormViewModel = new LoginFormViewModel(this,
-                new Services.UnidadTrabajo(new DataEntity.Model.PlanningOther()) );
+                Bootstrapper.Container.Resolve<Services.UnidadTrabajo>() );
 
             DataContext = _loginFormViewModel;
         }

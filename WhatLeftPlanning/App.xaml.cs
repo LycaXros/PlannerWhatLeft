@@ -13,10 +13,6 @@ namespace WhatLeftPlanning
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var loginWindow = container.Resolve<LoginForm>();
-            loginWindow.Show();
         }
 
         private void Application_DispatcherUnhandledException(object sender,

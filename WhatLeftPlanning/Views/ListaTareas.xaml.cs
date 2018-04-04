@@ -23,5 +23,6 @@ namespace WhatLeftPlanning.Views
         {
             InitializeComponent();
         }
+
     }
 }

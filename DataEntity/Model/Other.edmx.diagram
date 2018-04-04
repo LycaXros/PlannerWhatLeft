@@ -10,11 +10,11 @@
         <EntityTypeShape EntityType="PlanningDBModel.Tarea" Width="1.5" PointX="4.875" PointY="4" />
         <EntityTypeShape EntityType="PlanningDBModel.Tarea_Detalle" Width="1.5" PointX="0.5" PointY="4.125" />
         <EntityTypeShape EntityType="PlanningDBModel.Tipo_Tarea" Width="1.5" PointX="7.375" PointY="4.375" />
-        <EntityTypeShape EntityType="PlanningDBModel.Usuario" Width="1.5" PointX="2.625" PointY="1.5" />
         <EntityTypeShape EntityType="PlanningDBModel.UsuarioGrupo" Width="1.5" PointX="4.875" PointY="1.5" />
         <AssociationConnector Association="PlanningDBModel.FK_UsuarioGrupo_Grupo" />
         <AssociationConnector Association="PlanningDBModel.fkDetalleTareaID" />
         <AssociationConnector Association="PlanningDBModel.fkTareaTipoID" />
+        <EntityTypeShape EntityType="PlanningDBModel.Usuario" Width="1.5" PointX="2.75" PointY="1.5" />
         <AssociationConnector Association="PlanningDBModel.FK_UsuarioGrupo_Usuario" />
         <AssociationConnector Association="PlanningDBModel.TareaAsignadas" />
         <AssociationConnector Association="PlanningDBModel.RolUsuario" />

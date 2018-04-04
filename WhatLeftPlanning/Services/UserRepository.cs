@@ -62,11 +62,15 @@ namespace WhatLeftPlanning.Services
 
         public async Task<IEnumerable<Tarea>> ObtenerTareasUsuarioActual()
         {
-            var TareaDetalle = await
+            await Task.Factory.StartNew
+                ( () =>System.Threading.Thread.Sleep(50));
+
+            var TareaDetalle =
                 DatosEstaticos.CurrentUser.Tarea_Detalle
+                .Where(x => x.Estado.Equals("S"))
                 .Select(x => x.Tarea)
-                .AsQueryable()
-                .ToListAsync();
+                .Where(x => x.Estado.Equals("A"))
+                .ToList();
 
             return TareaDetalle;
         }

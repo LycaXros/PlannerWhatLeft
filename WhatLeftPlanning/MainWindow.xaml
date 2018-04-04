@@ -8,29 +8,56 @@
         xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:local="clr-namespace:WhatLeftPlanning"
-        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  x:Class="WhatLeftPlanning.MainWindow"
+        xmlns:view ="clr-namespace:WhatLeftPlanning.Views"
+        xmlns:viewModel ="clr-namespace:WhatLeftPlanning.ViewModels"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Name="themedWindow"  x:Class="WhatLeftPlanning.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
     <dx:ThemedWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ItemTemplates.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <DataTemplate DataType="{x:Type viewModel:ListaTareasViewModel}">
+            <view:ListaTareas/>
+        </DataTemplate>
     </dx:ThemedWindow.Resources>
-    <dx:ThemedWindow.DataContext>
-        <local:MainViewModel/>
-    </dx:ThemedWindow.DataContext>
+
     <Grid>
-        <dxr:RibbonControl RibbonStyle="Office2010"  x:Name="MainMenuRibbon" DataContext="{Binding RibbonControlBar}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <dxr:RibbonControl RibbonStyle="Office2010"  x:Name="MainMenuRibbon" ShowApplicationButton="False" ToolbarShowMode="ShowAbove" PageCategoryAlignment="Left">
             <dxr:RibbonDefaultPageCategory Caption="Default Category">
                 <dxr:RibbonPage Caption="Menu">
                     <dxr:RibbonPageGroup Caption="Acciones">
-                        <dxb:BarButtonItem Content="Ver Tareas" Glyph="{dx:DXImage Image=ConvertToRange_32x32.png}" RibbonStyle="Large"/>
-                        <dxb:BarButtonItem Content="Nueva Tarea" LargeGlyph="{dx:DXImage Image=AddFile_32x32.png}" Glyph="{dx:DXImage Image=AddFile_16x16.png}" RibbonStyle="Large"/>
+                        <dxb:BarButtonItemLink 
+                            />
+                        <dxb:BarButtonItem Content="Ver Tareas" Glyph="{dx:DXImage Image=ConvertToRange_32x32.png}" RibbonStyle="Large"
+                                           Hint="Abre la lista de tareas del usuario asignado." 
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="listaTareas"/>
+                        <dxb:BarButtonItem Content="Nueva Tarea" LargeGlyph="{dx:DXImage Image=AddFile_32x32.png}" Glyph="{dx:DXImage Image=AddFile_16x16.png}" RibbonStyle="Large"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="nuevaTarea"/>
                     </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Administracion de Usuario">
+                        <dxb:BarButtonItem Content="Nuevo Usuario" Glyph="{dx:DXImage Image=BOCustomer_32x32.png}" LargeGlyph="{dx:DXImage Image=BOCustomer_32x32.png}" RibbonStyle="Large"/>
+                        <dxb:BarButtonItem Content="BarButtonItem"/>
+                        <dxb:BarButtonItem Content="BarButtonItem"/>
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Ribbon Page Group"/>
+                    <dxr:RibbonPageGroup Caption="Ribbon Page Group"/>
                 </dxr:RibbonPage>
             </dxr:RibbonDefaultPageCategory>
         </dxr:RibbonControl>
+        <dxr:RibbonStatusBarControl Grid.Row="2" >
+            <dxr:RibbonStatusBarControl.RightItems>
+                <dxb:BarStaticItem ItemMinWidth="150" AutoSizeMode="Fill" Content="{Binding UserInfo}"/>
+            </dxr:RibbonStatusBarControl.RightItems>
+        </dxr:RibbonStatusBarControl>
+        <Grid Grid.Row="1">
+
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </dx:ThemedWindow>
