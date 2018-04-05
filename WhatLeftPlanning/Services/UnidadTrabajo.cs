@@ -12,6 +12,8 @@ namespace WhatLeftPlanning.Services
     {
         private readonly PlanningOther _context;
         private IUserRepository _usuarios;
+        private ITareasDetalleRepository _tareasDetalle;
+
 
         public UnidadTrabajo(PlanningOther context)
         {
@@ -25,6 +27,16 @@ namespace WhatLeftPlanning.Services
                 if (_usuarios == null)
                     _usuarios = new UserRepository(_context);
                 return _usuarios;
+            }
+        }
+
+        public ITareasDetalleRepository TareasDetalle
+        {
+            get
+            {
+                if (_tareasDetalle == null)
+                    _tareasDetalle = new TareasDetalleRepository(_context);
+                return _tareasDetalle;
             }
         }
 

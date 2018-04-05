@@ -29,7 +29,7 @@
         <dxr:RibbonControl RibbonStyle="Office2010"  x:Name="MainMenuRibbon" ShowApplicationButton="False" ToolbarShowMode="ShowAbove" PageCategoryAlignment="Left">
             <dxr:RibbonDefaultPageCategory Caption="Default Category">
                 <dxr:RibbonPage Caption="Menu">
-                    <dxr:RibbonPageGroup Caption="Acciones">
+                    <dxr:RibbonPageGroup Caption="Tareas">
                         <dxb:BarButtonItemLink 
                             />
                         <dxb:BarButtonItem Content="Ver Tareas" Glyph="{dx:DXImage Image=ConvertToRange_32x32.png}" RibbonStyle="Large"
@@ -41,12 +41,29 @@
                                            CommandParameter="nuevaTarea"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Administracion de Usuario">
-                        <dxb:BarButtonItem Content="Nuevo Usuario" Glyph="{dx:DXImage Image=BOCustomer_32x32.png}" LargeGlyph="{dx:DXImage Image=BOCustomer_32x32.png}" RibbonStyle="Large"/>
-                        <dxb:BarButtonItem Content="BarButtonItem"/>
-                        <dxb:BarButtonItem Content="BarButtonItem"/>
+                        <dxb:BarButtonItem Content="Nuevo Usuario" Glyph="{dx:DXImage Image=BOCustomer_32x32.png}" LargeGlyph="{dx:DXImage Image=BOCustomer_32x32.png}" RibbonStyle="Large"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="nuevoUsuario"/>
+                        <dxb:BarButtonItem Content="Asignar a Grupos" LargeGlyph="{dx:DXImage Image=UserGroup_32x32.png}" Glyph="{dx:DXImage Image=UserGroup_16x16.png}"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="asignarGrupos"/>
+                        <dxb:BarButtonItem Content="Asignar Tareas" LargeGlyph="{dx:DXImage Image=BOTask_32x32.png}" Glyph="{dx:DXImage Image=BOTask_16x16.png}"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="setTareas"/>
                     </dxr:RibbonPageGroup>
-                    <dxr:RibbonPageGroup Caption="Ribbon Page Group"/>
-                    <dxr:RibbonPageGroup Caption="Ribbon Page Group"/>
+                    <dxr:RibbonPageGroup Caption="Grupos" SmallGlyph="{dx:DXImage Image=BOFolder_16x16.png}">
+                        <dxb:BarButtonItem Content="Administrar Grupos" LargeGlyph="{dx:DXImage Image=BODepartment_32x32.png}" Glyph="{dx:DXImage Image=BODepartment_16x16.png}"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="adminGroup"/>
+                        <dxb:BarButtonItem Content="Nuevo Grupo" LargeGlyph="{dx:DXImage Image=Add_32x32.png}" Glyph="{dx:DXImage Image=Add_16x16.png}"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="newGroup"/>
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Reportes">
+                        <dxb:BarButtonItem Content="Ver Reportes" LargeGlyph="{dx:DXImage Image=Report_32x32.png}" Glyph="{dx:DXImage Image=Report_16x16.png}"
+                                           Command="{Binding NavCommand}"
+                                           CommandParameter="verReportes"/>
+                    </dxr:RibbonPageGroup>
                 </dxr:RibbonPage>
             </dxr:RibbonDefaultPageCategory>
         </dxr:RibbonControl>

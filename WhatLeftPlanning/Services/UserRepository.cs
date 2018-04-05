@@ -20,6 +20,8 @@ namespace WhatLeftPlanning.Services
 
         public async Task<bool> ValidarCredencialesAsync(string nick, string pass)
         {
+            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pass))
+                return false;
 
             var userExist = await dbSet
                 .AnyAsync(x => x.Nick.Equals(nick));
@@ -60,20 +62,6 @@ namespace WhatLeftPlanning.Services
                 .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && passConverted.Equals(x.Contraseña) );
         }
 
-        public async Task<IEnumerable<Tarea>> ObtenerTareasUsuarioActual()
-        {
-            await Task.Factory.StartNew
-                ( () =>System.Threading.Thread.Sleep(50));
-
-            var TareaDetalle =
-                DatosEstaticos.CurrentUser.Tarea_Detalle
-                .Where(x => x.Estado.Equals("S"))
-                .Select(x => x.Tarea)
-                .Where(x => x.Estado.Equals("A"))
-                .ToList();
-
-            return TareaDetalle;
-        }
 
         public PlanningOther PlanningDb
         {

@@ -12,8 +12,7 @@
         x:Class="WhatLeftPlanning.UserManagement.LoginForm"
         mc:Ignorable="d" Width="637.594" Height="514.874">
     <!--dx:DXSplashScreen.SplashScreenType="{x:Type global:StartSplash}"   >-->
-
-    <dxmvvm:Interaction.Behaviors>
+   <dxmvvm:Interaction.Behaviors>
         <dxwui:WinUIMessageBoxService/>
     </dxmvvm:Interaction.Behaviors>
     <Grid>

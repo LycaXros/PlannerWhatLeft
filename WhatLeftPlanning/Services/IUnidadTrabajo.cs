@@ -9,7 +9,7 @@ namespace WhatLeftPlanning.Services
     public interface IUnidadTrabajo : IDisposable
     {
         IUserRepository Usuarios { get; }
-
+        ITareasDetalleRepository TareasDetalle { get; }
         /// <summary>
         /// Salvar <see cref="System.Data.Entity.DbContext"/>
         /// </summary>

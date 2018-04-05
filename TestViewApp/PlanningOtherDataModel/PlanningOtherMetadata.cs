@@ -45,7 +45,6 @@ namespace TestViewApp.PlanningOtherDataModel {
 						builder.Property(x => x.Apellido).DisplayName(PlanningOtherResources.Usuario_Apellido);
 						builder.Property(x => x.Nick).DisplayName(PlanningOtherResources.Usuario_Nick);
 						builder.Property(x => x.Contraseña).DisplayName(PlanningOtherResources.Usuario_Contraseña);
-						builder.Property(x => x.ArchivoConf).DisplayName(PlanningOtherResources.Usuario_ArchivoConf);
 			        }
 		        public static void BuildMetadata(MetadataBuilder<UsuarioGrupo> builder) {
 			builder.DisplayName(PlanningOtherResources.UsuarioGrupo);

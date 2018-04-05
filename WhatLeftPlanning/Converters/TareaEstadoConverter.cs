@@ -12,7 +12,7 @@ namespace WhatLeftPlanning.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return getSortedEstatus(value == null ?"": value.ToString());
+            return getSortedEstatus(value == null ? "" : value.ToString());
 
         }
 
@@ -26,6 +26,32 @@ namespace WhatLeftPlanning.Converters
                     return "Elminida";
                 case "I":
                     return "Incompleta";
+                default:
+                    return "Estado no Valido";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class TareaDetalleEstadoConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return getSortedEstatus(value == null ? "" : value.ToString());
+        }
+
+        private string getSortedEstatus(string v)
+        {
+            switch (v)
+            {
+                case "S":
+                    return "Sin Completar";
+                case "C":
+                    return "Completa";
                 default:
                     return "Estado no Valido";
             }

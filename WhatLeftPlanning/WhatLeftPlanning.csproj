@@ -137,9 +137,11 @@
     </Compile>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\IRepositorio.cs" />
+    <Compile Include="Services\ITareasDetalleRepository.cs" />
     <Compile Include="Services\IUnidadTrabajo.cs" />
     <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="Services\Repositorio.cs" />
+    <Compile Include="Services\TareasDetalleRepository.cs" />
     <Compile Include="Services\UnidadTrabajo.cs" />
     <Compile Include="Services\UserRepository.cs" />
     <Compile Include="Settings.xaml.cs">

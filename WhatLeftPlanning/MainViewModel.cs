@@ -34,7 +34,7 @@ namespace WhatLeftPlanning
         {
             _unidadTrabajo = unidadTrabajo;
             _listaTareasView = new ListaTareasViewModel(unidadTrabajo);
-
+            _listaTareasView.CompletarTareaEvent += SaveContext;
 
 
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
@@ -42,6 +42,12 @@ namespace WhatLeftPlanning
             //    HamburgerMenuItems = new ReadOnlyCollection<IHamburgerMenuItemViewModel>(InitializeMenuItems());
             //    HamburgerMenuBottomBarItems = new ReadOnlyCollection<IHamburgerMenuBottomBarItemViewModel>(InitializeBottomBarItems());
 
+        }
+
+        private void SaveContext()
+        {
+            _unidadTrabajo.Complete();
+            OnNav("listaTareas");
         }
 
         private void OnNav(string obj)
@@ -61,19 +67,21 @@ namespace WhatLeftPlanning
 
             if (roles.Contains("Administrador"))
             {
-                return (arg.Equals("listaTareas") ||
-                        arg.Equals("nuevaTarea"));
+                var actions =new[]{ "listaTareas", "nuevaTarea", "asignarGrupos","nuevoUsuario","setTareas", "adminGroup","newGroup", "verReportes" };
+                return actions.Contains(arg);
 
             }
             else if (roles.Contains("Lider"))
             {
-                return (arg.Equals("listaTareas") ||
-                        arg.Equals("nuevaTarea"));
+                var actions = new[] { "listaTareas", "nuevaTarea", "asignarGrupos","setTareas", "adminGroup", "newGroup", "verReportes" };
+                return actions.Contains(arg);
+
             }
             else if (roles.Contains("Normal"))
             {
-                return (arg.Equals("listaTareas") ||
-                        arg.Equals("nuevaTarea"));
+                var actions = new[] { "listaTareas", "nuevaTarea", "verReportes" };
+                return actions.Contains(arg);
+
             }
             else
                 return false;

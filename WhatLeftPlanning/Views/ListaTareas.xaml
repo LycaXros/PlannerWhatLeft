@@ -8,7 +8,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:Model="clr-namespace:DataEntity.Model;assembly=DataEntity"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="WhatLeftPlanning.Views.ListaTareas"
              mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="500">
+             d:DesignHeight="500" Width="973">
     <dxmvvm:Interaction.Behaviors>
         <dx:DXMessageBoxService />
     </dxmvvm:Interaction.Behaviors>
@@ -18,7 +18,7 @@
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
         </dx:EntitySimpleDataSource>
-        <conv:TareaEstadoConverter x:Key="EstadoConverter" />
+        <conv:TareaDetalleEstadoConverter x:Key="EstadoConverter" />
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -26,21 +26,33 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <Button Content="Editar"
+                    Grid.Column="0"
                     Command="{Binding EditarCommand}"
                     />
             <Button Content="Eliminar"
+                    Grid.Column="2"
                     Command="{Binding EliminarCommand}"
                     />
-        </StackPanel>
+            <Button Content="Completar"
+                    Grid.Column="4"
+                    Command="{Binding CompletarCommand}"
+                    />
+        </Grid>
 
-        <dx:LoadingDecorator Grid.Column="1"
-                             SplashScreenLocation="CenterContainer">
+        <dx:LoadingDecorator SplashScreenLocation="CenterContainer">
             <dx:LoadingDecorator.SplashScreenTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -49,19 +61,23 @@
                     </StackPanel>
                 </DataTemplate>
             </dx:LoadingDecorator.SplashScreenTemplate>
-
-            <dxg:GridControl  AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" 
-                     ItemsSource="{Binding Tareas}" SelectionMode="Cell"
-                     SelectedItem="{Binding SelectedTarea}">
+            <dxg:GridControl ItemsSource="{Binding Tareas}" SelectionMode="Row" SelectedItem="{Binding SelectedTarea, Mode=TwoWay}" 
+                             AutoGenerateColumns="None" >
                 <dxg:GridControl.View>
-                    <dxg:CardView AllowEditing="False" CardLayout="Rows" Margin="116,0,0,0"/>
+                    <dxg:TableView AllowEditing="False"/>
                 </dxg:GridControl.View>
-                <dxg:GridColumn FieldName="Tipo.Nombre" Header="Tipo" IsSmart="True" SortOrder="Descending" GroupIndex="0"/>
-                <dxg:GridColumn FieldName="Nombre" IsSmart="True"/>
-                <dxg:GridColumn FieldName="Descripción" IsSmart="True"/>
-                <dxg:GridColumn FieldName="Estado" IsSmart="True">
+                <dxg:GridColumn FieldName="Tarea.Nombre" Header="Nombre"/>
+                <dxg:GridColumn FieldName="Tarea.Tipo.Nombre" Header="Tipo" GroupIndex="0" SortOrder="Ascending"/>
+                <dxg:GridColumn FieldName="Tarea.Descripción" Header="Descripcion"/>
+                <dxg:GridColumn FieldName="Estado" Header="Estado">
                     <dxg:GridColumn.EditSettings>
                         <dxe:TextEditSettings DisplayTextConverter="{StaticResource EstadoConverter}"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="FechaIni" Header="Fecha Asignado" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings Mask="f" MaskUseAsDisplayFormat="True"/>
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
             </dxg:GridControl>
@@ -69,3 +85,8 @@
     </Grid>
     <!--ItemsSource="{Binding Tareas}"-->
 </UserControl>
+<!--<dxg:GridColumn FieldName="Estado" IsSmart="True">
+    <dxg:GridColumn.EditSettings>
+        <dxe:TextEditSettings DisplayTextConverter="{StaticResource EstadoConverter}"/>
+    </dxg:GridColumn.EditSettings>
+</dxg:GridColumn>-->

@@ -51,7 +51,7 @@ namespace WhatLeftPlanning.UserManagement
             }
             else
             {
-               MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
+                MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
             }
             IsLogin = false;
         }
@@ -82,6 +82,8 @@ namespace WhatLeftPlanning.UserManagement
             LoginCommand = new RelayCommand(OnLogin, CanLogin);
 
             IsLogin = false;
+            UserName = string.Empty;
+            Password = string.Empty;
         }
 
         private bool _isLogin;
@@ -89,7 +91,9 @@ namespace WhatLeftPlanning.UserManagement
         public bool IsLogin
         {
             get { return _isLogin; }
-            set { SetProperty(ref _isLogin, value);
+            set
+            {
+                SetProperty(ref _isLogin, value);
 
                 LoginCommand.RaiseCanExecuteChanged();
             }
@@ -99,13 +103,15 @@ namespace WhatLeftPlanning.UserManagement
         public string UserName
         {
             get { return _userNick; }
-            set { SetProperty(ref _userNick, value ); }
+            set { SetProperty(ref _userNick, value);
+            }
         }
 
         public string Password
         {
             get { return _password; }
-            set { SetProperty(ref _password , value); }
+            set { SetProperty(ref _password, value);
+            }
         }
 
         public RelayCommand CancelCommand { get; private set; }
