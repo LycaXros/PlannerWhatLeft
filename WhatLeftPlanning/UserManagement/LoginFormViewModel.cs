@@ -29,31 +29,39 @@ namespace WhatLeftPlanning.UserManagement
         private async void OnLogin()
         {
             IsLogin = true;
-            bool result = await _repo.Usuarios.ValidarCredencialesAsync(_userNick, _password);
-
-            if (result)
+            try
             {
-                //_messageDialogService.ShowDialog("Usuario Valido","Mensaje");
-                MessageBoxService.ShowMessage("Usuario Valido", "Mensaje");
+                bool result = await _repo.Usuarios.ValidarCredencialesAsync(_userNick, _password);
 
-                var user = await _repo.Usuarios.GetUser(_userNick, _password);
-                DatosEstaticos.CurrentUser = user;
+                if (result)
+                {
+                    //_messageDialogService.ShowDialog("Usuario Valido","Mensaje");
+                    MessageBoxService.ShowMessage("Usuario Valido", "Mensaje");
 
-                var mainWindow = new MainWindow();
+                    var user = await _repo.Usuarios.GetUser(_userNick, _password);
+                    DatosEstaticos.CurrentUser = user;
+
+                    var mainWindow = new MainWindow();
 
 
-                UserName = string.Empty;
-                Password = string.Empty;
-                _loginForm.Hide();
-                mainWindow.ShowDialog();
-                _loginForm.Visibility = Visibility.Visible;
-                _loginForm.Show();
+                    UserName = string.Empty;
+                    Password = string.Empty;
+                    _loginForm.Hide();
+                    mainWindow.ShowDialog();
+                    _loginForm.Visibility = Visibility.Visible;
+                    _loginForm.Show();
+                }
+                else
+                {
+                    MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBoxService.ShowMessage("Usuario No valido, Contraseña Incorrecta", "Mensaje");
+
+                throw ex;  
             }
-            IsLogin = false;
+            finally { IsLogin = false; }
         }
 
 

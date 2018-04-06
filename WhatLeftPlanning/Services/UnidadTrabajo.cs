@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace WhatLeftPlanning.Services
         private readonly PlanningOther _context;
         private IUserRepository _usuarios;
         private ITareasDetalleRepository _tareasDetalle;
-
+        private ITareaRepository _tareas;
 
         public UnidadTrabajo(PlanningOther context)
         {
@@ -40,8 +42,47 @@ namespace WhatLeftPlanning.Services
             }
         }
 
-        public async Task<int> Complete() => await _context.SaveChangesAsync();
-        public void Dispose() => _context.Dispose();
+        public ITareaRepository Tareas
+        {
+            get
+            {
+                if (_tareas == null)
+                    _tareas = new TareaRepository(_context);
+                return _tareas;
+            }
+        }
 
+
+        public async Task<int> Complete()
+        {
+
+            int saving = 0;
+            try
+            {
+                saving = await _context.SaveChangesAsync();
+                //RefreshAll();
+
+                return saving;
+            }
+            catch (DbEntityValidationException ex) {
+
+
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+        public void Dispose() => _context.Dispose();
+        private void RefreshAll()
+        {
+            foreach (var entity in _context.ChangeTracker.Entries())
+            {
+                entity.Reload();
+            }
+        }
     }
 }

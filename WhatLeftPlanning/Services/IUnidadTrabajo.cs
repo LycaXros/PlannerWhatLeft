@@ -10,6 +10,9 @@ namespace WhatLeftPlanning.Services
     {
         IUserRepository Usuarios { get; }
         ITareasDetalleRepository TareasDetalle { get; }
+        ITareaRepository Tareas { get; }
+        
+
         /// <summary>
         /// Salvar <see cref="System.Data.Entity.DbContext"/>
         /// </summary>

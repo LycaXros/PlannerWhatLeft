@@ -38,7 +38,6 @@ namespace WhatLeftPlanning.Services
         public void Remove(TEntity entity) => dbSet.Remove(entity);
         public void RemoveRange(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
 
-
     }
 
 }

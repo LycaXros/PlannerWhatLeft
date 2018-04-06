@@ -15,5 +15,10 @@ namespace WhatLeftPlanning
             InitializeComponent();
             DataContext = new MainViewModel(Bootstrapper.Container.Resolve<Services.UnidadTrabajo>() );
         }
+
+        private void ScrollBar_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

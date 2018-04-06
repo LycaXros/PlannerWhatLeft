@@ -10,6 +10,7 @@ namespace WhatLeftPlanning.Services
         Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetAll();
         Task<TEntity> GetByID(int id);
+        
 
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);

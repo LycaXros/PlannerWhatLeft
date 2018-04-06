@@ -36,6 +36,8 @@ namespace WhatLeftPlanning
             _listaTareasView = new ListaTareasViewModel(unidadTrabajo);
             _listaTareasView.CompletarTareaEvent += SaveContext;
 
+            _addEditTareaView = new AddEditTareaViewModel(unidadTrabajo);
+            _addEditTareaView.Done += SaveContext;
 
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
             CurrentViewModel = _listaTareasView;
@@ -44,9 +46,9 @@ namespace WhatLeftPlanning
 
         }
 
-        private void SaveContext()
+        private async void SaveContext()
         {
-            _unidadTrabajo.Complete();
+            await _unidadTrabajo.Complete();
             OnNav("listaTareas");
         }
 
@@ -54,11 +56,21 @@ namespace WhatLeftPlanning
         {
             switch (obj)
             {
+                case "nuevaTarea":
+                    NavToNuevaTarea();
+                    break;
                 case "listaTareas":
                 default:
                     CurrentViewModel = _listaTareasView;
                     break;
             }
+        }
+
+        private void NavToNuevaTarea()
+        {
+            _addEditTareaView.EditMode = false;
+            _addEditTareaView.SetTarea(new DataEntity.Model.Tarea());
+            CurrentViewModel = _addEditTareaView;
         }
 
         private bool CanNav(string arg)
@@ -92,45 +104,11 @@ namespace WhatLeftPlanning
         private void InitializeRibbonControlItems()
         {
         }
+
+        private AddEditTareaViewModel _addEditTareaView;
+
         public RelayCommand<string> NavCommand { get; private set; }
-        //protected virtual IList<IHamburgerMenuItemViewModel> InitializeMenuItems()
-        //{
-
-        //    var user = DatosEstaticos.CurrentUser;
-
-        //    List<string> roles = new List<string>();
-        //    foreach (var item in user.Roles)
-        //    {
-        //        roles.Add(item.Nombre);
-        //    }
-
-
-        //    var result = new List<IHamburgerMenuItemViewModel>();
-
-        //    result.Add(new NavigationItemModel("Home") { NavigationTarget = typeof(Home), Glyph = "Icons/Home.png" });
-
-        //    if (roles.Contains(nameof(DataEntity.DataTransform.RolConstantes.Administrador)))
-
-        //        result.Add(new SeparatorItem());
-        //    var subMenu = new SubMenuItemModel("Menu") { Glyph = "Icons/Menu.png" };
-        //    subMenu.Items.Add(new SubMenuNavigationItemModel("Reportes", "Ver Reportes") { RightContent = "RC", ShowInPreview = true, SelectOnClick = false });
-        //    subMenu.Items.Add(new SubMenuNavigationItemModel("Otro", "PreviewItem 2") { ShowInPreview = true, NavigationTarget = typeof(Home) });
-        //    subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 3", null) { IsSelected = true });
-        //    subMenu.Items.Add(new SubMenuNavigationItemModel("MenuSubItem 4", null) { RightContent = "RC", ShowMark = true });
-        //    result.Add(subMenu);
-        //    //result.Add(new HyperlinkItemModel("More information...", new Uri("https://www.devexpress.com/")) { IsAlternatePlacementItem = true, });
-        //    result.Add(new NavigationItemModel("About") { NavigationTarget = typeof(About), IsAlternatePlacementItem = true, Glyph = "Icons/About.png" });
-        //    return result;
-        //}
-        //protected virtual IList<IHamburgerMenuBottomBarItemViewModel> InitializeBottomBarItems()
-        //{
-        //    return new List<IHamburgerMenuBottomBarItemViewModel>() {
-        //        new BottomBarNavigationItemModel() { NavigationTarget = typeof(Settings), Glyph = "Icons/Settings.png", IsAlternatePlacementItem = true },
-        //        new BottomBarCheckableItemModel() { Glyph = "Icons/Check.png" },
-        //        new BottomBarRadioItemModel("RadioGroup") { Glyph = "Icons/Radio1.png" },
-        //        new BottomBarRadioItemModel("RadioGroup") { Glyph = "Icons/Radio2.png" }
-        //    };
-        //}
+        
 
     }
 }

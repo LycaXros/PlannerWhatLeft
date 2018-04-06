@@ -64,8 +64,11 @@
     <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Controls.v17.2" />
     <Reference Include="DevExpress.Xpf.Core.v17.2" />
+    <Reference Include="DevExpress.Xpf.Docking.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v17.2.Core, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Layout.v17.2.Core, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -137,16 +140,19 @@
     </Compile>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\IRepositorio.cs" />
+    <Compile Include="Services\ITareaRepository.cs" />
     <Compile Include="Services\ITareasDetalleRepository.cs" />
     <Compile Include="Services\IUnidadTrabajo.cs" />
     <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="Services\Repositorio.cs" />
+    <Compile Include="Services\TareaRepository.cs" />
     <Compile Include="Services\TareasDetalleRepository.cs" />
     <Compile Include="Services\UnidadTrabajo.cs" />
     <Compile Include="Services\UserRepository.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SimpleItems\SimpleItems.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="Startup\DatosEstaticos.cs" />
     <Compile Include="UserManagement\LoginForm.xaml.cs">
@@ -155,13 +161,13 @@
     <Compile Include="UserManagement\LoginFormViewModel.cs" />
     <Compile Include="ValidateViewModelBase.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModels\AddEditTareaViewModel.cs" />
     <Compile Include="ViewModels\ListaTareasViewModel.cs" />
-    <Compile Include="ViewModels\TareaDetalleViewModel.cs" />
+    <Compile Include="Views\AddEditTareaView.xaml.cs">
+      <DependentUpon>AddEditTareaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ListaTareas.xaml.cs">
       <DependentUpon>ListaTareas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TareaDetalleView.xaml.cs">
-      <DependentUpon>TareaDetalleView.xaml</DependentUpon>
     </Compile>
     <Page Include="DXSplashScreen\StartSplash.xaml">
       <SubType>Designer</SubType>
@@ -216,11 +222,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ListaTareas.xaml">
+    <Page Include="Views\AddEditTareaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TareaDetalleView.xaml">
+    <Page Include="Views\ListaTareas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

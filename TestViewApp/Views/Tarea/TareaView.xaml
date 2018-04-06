@@ -46,7 +46,10 @@
             <dxlc:DataLayoutItem x:Name="layoutItemDescripción" Binding="{Binding Entity.Descripción, UpdateSourceTrigger=PropertyChanged}" />
             <dxlc:DataLayoutItem x:Name="layoutItemEstado" Binding="{Binding Entity.Estado, UpdateSourceTrigger=PropertyChanged}" />
             <dxlc:DataLayoutItem x:Name="layoutItemTipo" Binding="{Binding Entity.Tipo, Mode=OneTime}">
-                <dxg:LookUpEdit Style="{StaticResource EntityView.LookUpEdit}" DataContext="{Binding ElementName=layoutControl, Path=DataContext}" EditValue="{Binding Entity.TipoID, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" ItemsSource="{Binding LookUpTipo_Tarea.Entities}" ValueMember="ID" DisplayMember="Nombre">
+                <dxg:LookUpEdit Style="{StaticResource EntityView.LookUpEdit}" 
+                                DataContext="{Binding ElementName=layoutControl, Path=DataContext}" 
+                                EditValue="{Binding Entity.TipoID, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" ItemsSource="{Binding LookUpTipo_Tarea.Entities}" 
+                                ValueMember="ID" DisplayMember="Nombre">
                     <dxg:LookUpEdit.PopupContentTemplate>
                         <ControlTemplate TargetType="ContentControl">
                             <dxg:GridControl x:Name="PART_GridControl" ShowBorder="False" ShowLoadingPanel="{Binding LookUpTipo_Tarea.IsLoading}" />

@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type viewModel:ListaTareasViewModel}">
             <view:ListaTareas/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AddEditTareaViewModel}">
+            <view:AddEditTareaView/>
+        </DataTemplate>
     </dx:ThemedWindow.Resources>
 
     <Grid>
@@ -72,9 +75,14 @@
                 <dxb:BarStaticItem ItemMinWidth="150" AutoSizeMode="Fill" Content="{Binding UserInfo}"/>
             </dxr:RibbonStatusBarControl.RightItems>
         </dxr:RibbonStatusBarControl>
-        <Grid Grid.Row="1">
 
-            <ContentControl Content="{Binding CurrentViewModel}" />
-        </Grid>
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid Height="500">
+                <ContentControl Content="{Binding CurrentViewModel}" />
+
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </dx:ThemedWindow>

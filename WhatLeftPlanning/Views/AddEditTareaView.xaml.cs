@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace WhatLeftPlanning.Views
 {
     /// <summary>
-    /// Interaction logic for TareaDetalleView.xaml
+    /// Interaction logic for AddEditTareaView.xaml
     /// </summary>
-    public partial class TareaDetalleView : UserControl
+    public partial class AddEditTareaView : UserControl
     {
-        public TareaDetalleView()
+        public AddEditTareaView()
         {
             InitializeComponent();
         }

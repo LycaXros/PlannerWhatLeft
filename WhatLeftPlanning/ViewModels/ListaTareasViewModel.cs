@@ -94,6 +94,7 @@ namespace WhatLeftPlanning.ViewModels
             var r = await _unidadTrabajo.TareasDetalle.ObtenerTareasUsuarioActual();
             
             _tareasUsuario =  (List<Tarea_Detalle>) r;
+            Tareas = null;
             Tareas = new ObservableCollection<Tarea_Detalle>(_tareasUsuario);
         }
     }
