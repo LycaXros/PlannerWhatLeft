@@ -60,18 +60,15 @@ namespace WhatLeftPlanning.Services
             try
             {
                 saving = await _context.SaveChangesAsync();
-                //RefreshAll();
-
+                RefreshAll();
                 return saving;
             }
-            catch (DbEntityValidationException ex) {
-
-
+            catch (DbEntityValidationException ex)
+            {
                 throw ex;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             
@@ -81,6 +78,7 @@ namespace WhatLeftPlanning.Services
         {
             foreach (var entity in _context.ChangeTracker.Entries())
             {
+                
                 entity.Reload();
             }
         }

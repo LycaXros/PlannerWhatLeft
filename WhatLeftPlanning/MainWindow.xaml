@@ -64,7 +64,7 @@
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Reportes">
                         <dxb:BarButtonItem Content="Ver Reportes" LargeGlyph="{dx:DXImage Image=Report_32x32.png}" Glyph="{dx:DXImage Image=Report_16x16.png}"
-                                           Command="{Binding NavCommand}"
+                                           Command="{Binding ShowReportCommand}"
                                            CommandParameter="verReportes"/>
                     </dxr:RibbonPageGroup>
                 </dxr:RibbonPage>

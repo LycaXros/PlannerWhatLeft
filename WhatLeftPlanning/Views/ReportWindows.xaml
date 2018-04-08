@@ -1,0 +1,17 @@
+﻿<dx:ThemedWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+    x:Class="WhatLeftPlanning.Views.ReportWindows"
+    Title="ReportWindows" Height="490.961" Width="750.057"
+    WindowState="Maximized" Loaded="LoadedWin"
+    >
+
+    <Grid>
+
+        <dxp:DocumentPreviewControl CommandBarStyle="Bars"
+                                    x:Name="DocumentPresenter"/>
+
+    </Grid>
+</dx:ThemedWindow>

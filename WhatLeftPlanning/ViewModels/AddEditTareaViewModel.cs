@@ -29,9 +29,20 @@ namespace WhatLeftPlanning.ViewModels
         }
 
         public event Action Done = delegate { };
+        private DateTime _selectedDate;
+
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set { SetProperty(ref _selectedDate, value); }
+        }
+
+
 
         private void OnCancel()
         {
+            TipoID = 0;
+
             Done();
         }
 
@@ -45,8 +56,13 @@ namespace WhatLeftPlanning.ViewModels
             }
             else
             {
-                var detalle = new Tarea_Detalle();
-                detalle.FechaIni = DateTime.Now;
+                var detalle = new Tarea_Detalle
+                {
+                    FechaIni = DateTime.Now
+                };
+                if (IsTemporal)
+                    detalle.FechaFin = SelectedDate;
+
                 detalle.Usuario.Add(DatosEstaticos.CurrentUser);
                 detalle.Estado = DataEntity.DataTransform.TareaDetalleEstados.Incompleta;
 
@@ -75,7 +91,28 @@ namespace WhatLeftPlanning.ViewModels
         //{
 
         //}
+        private int _tipoID;
+
+        public int TipoID
+        {
+            get { return _tipoID; }
+            set
+            {
+                CurrentTarea.TipoID = value;
+                SetProperty(ref _tipoID, value);
+                IsTemporal = (value == DataEntity.DataTransform.Constantes.TipoTareaTemporal);                
+            }
+        }
+
         private bool editMode;
+
+        private bool _isTemporal;
+
+        public bool IsTemporal
+        {
+            get { return _isTemporal; }
+            set { SetProperty(ref _isTemporal, value); }
+        }
 
         public bool EditMode
         {
@@ -100,6 +137,7 @@ namespace WhatLeftPlanning.ViewModels
                 tarea.Nombre = source.Nombre;
                 tarea.Descripción = source.Descripción;
                 tarea.TipoID = source.TipoID;
+                TipoID = source.TipoID;
             }
         }
 
@@ -107,6 +145,8 @@ namespace WhatLeftPlanning.ViewModels
         {
             SaveCommand.RaiseCanExecuteChanged();
         }
+
+        public DateTime CurrentDate => DateTime.Now;
 
         public SimpleTarea CurrentTarea
         {

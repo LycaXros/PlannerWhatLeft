@@ -38,8 +38,10 @@ namespace WhatLeftPlanning.UserManagement
                     //_messageDialogService.ShowDialog("Usuario Valido","Mensaje");
                     MessageBoxService.ShowMessage("Usuario Valido", "Mensaje");
 
-                    var user = await _repo.Usuarios.GetUser(_userNick, _password);
+                    var user = (await _repo.Usuarios.GetUser(_userNick, _password));
+                    
                     DatosEstaticos.CurrentUser = user;
+                    //DatosEstaticos.CurrentUser = user;
 
                     var mainWindow = new MainWindow();
 

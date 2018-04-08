@@ -9,6 +9,10 @@ namespace WhatLeftPlanning.Startup
 {
     public static class DatosEstaticos
     {
-        public static Usuario CurrentUser = null;
+        //private static int userId;
+        
+        //public static int UserId { get => userId; set => userId = value; }
+        public static Usuario CurrentUser { get; set; }
+        
     }
 }

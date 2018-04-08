@@ -8,6 +8,7 @@ using DevExpress.Xpf.Ribbon;
 using WhatLeftPlanning.Services;
 using DataEntity.DataTransform;
 using WhatLeftPlanning.ViewModels;
+using WhatLeftPlanning.Views;
 
 namespace WhatLeftPlanning
 {
@@ -40,10 +41,19 @@ namespace WhatLeftPlanning
             _addEditTareaView.Done += SaveContext;
 
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
+            ShowReportCommand = new RelayCommand<string>(ShowReport,CanNav);
             CurrentViewModel = _listaTareasView;
             //    HamburgerMenuItems = new ReadOnlyCollection<IHamburgerMenuItemViewModel>(InitializeMenuItems());
             //    HamburgerMenuBottomBarItems = new ReadOnlyCollection<IHamburgerMenuBottomBarItemViewModel>(InitializeBottomBarItems());
 
+        }
+
+        private void ShowReport(string obj)
+        {
+            
+                var reportWindow = new ReportWindows();
+                reportWindow.ShowDialog();
+            
         }
 
         private async void SaveContext()
@@ -108,7 +118,6 @@ namespace WhatLeftPlanning
         private AddEditTareaViewModel _addEditTareaView;
 
         public RelayCommand<string> NavCommand { get; private set; }
-        
-
+        public RelayCommand<string> ShowReportCommand { get; }
     }
 }

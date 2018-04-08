@@ -8,6 +8,9 @@ namespace DataEntity.DataTransform
 {
     public class Constantes
     {
+        public const int TipoTareaTemporal = 2;
+        public const int TipoTareaDiaria = 1;
+
     }
     public class RolConstantes
     {

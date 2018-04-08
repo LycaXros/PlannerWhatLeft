@@ -19,6 +19,7 @@
             </dx:DesignDataManager.DesignData>
         </dx:EntitySimpleDataSource>
         <conv:TareaDetalleEstadoConverter x:Key="EstadoConverter" />
+        <conv:TipoTextConverter x:Key="TipoConverter" />
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -67,7 +68,11 @@
                     <dxg:TableView AllowEditing="False"/>
                 </dxg:GridControl.View>
                 <dxg:GridColumn FieldName="Tarea.Nombre" Header="Nombre"/>
-                <dxg:GridColumn FieldName="Tarea.Tipo.Nombre" Header="Tipo" GroupIndex="0" SortOrder="Ascending"/>
+                <dxg:GridColumn FieldName="Tarea.TipoID" Header="Tipo" GroupIndex="0" SortOrder="Ascending">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource TipoConverter}"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
                 <dxg:GridColumn FieldName="Tarea.Descripción" Header="Descripcion"/>
                 <dxg:GridColumn FieldName="Estado" Header="Estado">
                     <dxg:GridColumn.EditSettings>

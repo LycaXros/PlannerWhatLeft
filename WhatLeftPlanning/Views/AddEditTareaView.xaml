@@ -6,38 +6,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="WhatLeftPlanning.Views.AddEditTareaView"
-             mc:Ignorable="d" Height="500" Width="500">
+              
+    mc:Ignorable="d" Width="600" >
 
     <UserControl.Resources>
-        <Style TargetType="TextBox" >
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError"
-                         Value="true">
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                            Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <dxmvvm:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="rowDefinition" Height="*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" DataContext="{Binding CurrentTarea}">
-            <Label Content="Nombre de la Tarea:"  FontFamily="LatoBold" FontSize="20" />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+        <StackPanel  DataContext="{Binding CurrentTarea}">
+            <TextBlock Text="Nombre de la Tarea:"  FontSize="40" />
             <TextBox Text="{Binding Nombre, ValidatesOnNotifyDataErrors =  True}" />
-            <Label Content="Descripcion de la Tarea:"  FontFamily="LatoBold" FontSize="20" />
+            <TextBlock Text="Descripcion de la Tarea:"  FontSize="40"  />
             <TextBox Text="{Binding Descripción, ValidatesOnNotifyDataErrors =  True}" />
-            <Label Content="Tipo de la Tarea:"  FontFamily="LatoBold" FontSize="20" />
-            <ComboBox SelectedValue="{Binding TipoID}" 
+            <TextBlock Text="Tipo de la Tarea:"  FontSize="40" />
+            <ComboBox SelectedValue="{Binding DataContext.TipoID, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                               ItemsSource="{Binding DataContext.TipoItems, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                              DisplayMemberPath="Nombre" SelectedValuePath="ID"/>
+                              DisplayMemberPath="Nombre" SelectedValuePath="ID" FontSize="40"/>
             <!--<TextBox Text="{Binding Nombre, ValidatesOnNotifyDataErrors =  True}" />-->
-        </StackPanel>
+            <StackPanel 
+                Visibility="{Binding DataContext.IsTemporal, 
+                             RelativeSource={RelativeSource AncestorType=UserControl}, 
+                             Converter={StaticResource VisibilityConverter}}">
+                <TextBlock Text="Fecha de la tarea Temporal:"  FontSize="35"  />
+                <dxe:DateEdit FontSize="20" MinValue="{Binding DataContext.CurrentDate , RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              EditValue="{Binding DataContext.SelectedDate , RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              Mask="'Fecha: 'dddd dd MMMM yyyy'.'">
+                    <dxe:DateEdit.StyleSettings>
+                        <dxe:DateEditPickerStyleSettings/>
+                    </dxe:DateEdit.StyleSettings>
+                </dxe:DateEdit>
+            </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
