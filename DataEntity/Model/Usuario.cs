@@ -18,7 +18,7 @@ namespace DataEntity.Model
         public Usuario()
         {
             this.GrupoRef = new HashSet<UsuarioGrupo>();
-            this.Tarea = new HashSet<Tarea_Detalle>();
+            this.DetalleTareas = new HashSet<Tarea_Detalle>();
             this.Roles = new HashSet<Rol>();
         }
     
@@ -31,7 +31,7 @@ namespace DataEntity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuarioGrupo> GrupoRef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tarea_Detalle> Tarea { get; set; }
+        public virtual ICollection<Tarea_Detalle> DetalleTareas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rol> Roles { get; set; }
     }

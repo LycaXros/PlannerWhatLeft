@@ -189,11 +189,15 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AddEditTareaViewModel.cs" />
     <Compile Include="ViewModels\ListaTareasViewModel.cs" />
+    <Compile Include="ViewModels\ManejoUsuariosViewModel.cs" />
     <Compile Include="Views\AddEditTareaView.xaml.cs">
       <DependentUpon>AddEditTareaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ListaTareas.xaml.cs">
       <DependentUpon>ListaTareas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManejoUsuariosView.xaml.cs">
+      <DependentUpon>ManejoUsuariosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReportWindows.xaml.cs">
       <DependentUpon>ReportWindows.xaml</DependentUpon>
@@ -260,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListaTareas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManejoUsuariosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

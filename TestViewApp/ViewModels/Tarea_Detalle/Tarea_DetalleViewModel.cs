@@ -38,7 +38,7 @@ namespace TestViewApp.ViewModels {
 
         protected override void RefreshLookUpCollections(bool raisePropertyChanged) {
             base.RefreshLookUpCollections(raisePropertyChanged);
-                UsuarioDetailEntities = CreateAddRemoveDetailEntitiesViewModel(x => x.Usuario, x => x.Usuario);
+                UsuarioDetailEntities = CreateAddRemoveDetailEntitiesViewModel(x => x.Usuario, x => x.Usuarios);
         }
         /// <summary>
         /// The view model that contains a look-up collection of Tarea for the corresponding navigation property in the view.

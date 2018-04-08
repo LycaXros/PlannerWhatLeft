@@ -20,6 +20,8 @@ namespace WhatLeftPlanning
 
         public IEnumerable GetErrors(string propertyName)
         {
+            if (string.IsNullOrEmpty(propertyName))
+                return null;
             if (_errors.ContainsKey(propertyName))
                 return _errors[propertyName];
             else
@@ -35,8 +37,10 @@ namespace WhatLeftPlanning
         private void ValidateProperty<T>(string propertyName, T value)
         {
             var results = new List<ValidationResult>();
-            ValidationContext context = new ValidationContext(this);
-            context.MemberName = propertyName;
+            ValidationContext context = new ValidationContext(this)
+            {
+                MemberName = propertyName
+            };
             Validator.TryValidateProperty(value, context, results);
 
             if (results.Any())

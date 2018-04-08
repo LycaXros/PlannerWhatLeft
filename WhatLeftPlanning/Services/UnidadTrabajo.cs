@@ -73,6 +73,11 @@ namespace WhatLeftPlanning.Services
             }
             
         }
+        public PlanningOther GetContext()
+        {
+            return _context;
+
+        }
         public void Dispose() => _context.Dispose();
         private void RefreshAll()
         {

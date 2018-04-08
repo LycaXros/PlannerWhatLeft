@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DataEntity.Model;
 using DevExpress.Mvvm;
@@ -16,6 +17,7 @@ namespace WhatLeftPlanning.ViewModels
         private Tarea _editingTarea;
         private IUnidadTrabajo _unidadTrabajo;
         private SimpleTarea _currentTarea;
+        private int editingDetalleID = 0;
 
         public RelayCommand SaveCommand { get; }
         public RelayCommand CancelCommand { get; }
@@ -50,12 +52,9 @@ namespace WhatLeftPlanning.ViewModels
         {
 
             UpdateCustomer(CurrentTarea, _editingTarea);
-            if (EditMode)
-            {
-
-            }
-            else
-            {
+            await Task.Factory.StartNew(() => System.Threading.Thread.Sleep(1000));
+            if (!EditMode)
+            { 
                 var detalle = new Tarea_Detalle
                 {
                     FechaIni = DateTime.Now
@@ -63,14 +62,20 @@ namespace WhatLeftPlanning.ViewModels
                 if (IsTemporal)
                     detalle.FechaFin = SelectedDate;
 
-                detalle.Usuario.Add(DatosEstaticos.CurrentUser);
+                detalle.Usuarios.Add(DatosEstaticos.CurrentUser);
                 detalle.Estado = DataEntity.DataTransform.TareaDetalleEstados.Incompleta;
-
-                await Task.Factory.StartNew(() => System.Threading.Thread.Sleep(1000));
 
                 _editingTarea.Detalles.Add(detalle);
                 _editingTarea.Estado = DataEntity.DataTransform.TareaEstados.Activa;
                 _unidadTrabajo.Tareas.Add(_editingTarea);
+            }
+            else
+            {
+
+                var currentTareaDetail = await
+                    _unidadTrabajo.TareasDetalle.GetByID(editingDetalleID);
+                currentTareaDetail.FechaFin = SelectedDate;
+
             }
             Done();
         }
@@ -120,9 +125,10 @@ namespace WhatLeftPlanning.ViewModels
             set { SetProperty(ref editMode, value); }
         }
 
-        public void SetTarea(Tarea obj)
+        public void SetTarea(Tarea obj, int editingDetail = 0)
         {
             _editingTarea = obj;
+            if (EditMode) editingDetalleID = editingDetail;
             if (CurrentTarea != null) CurrentTarea.ErrorsChanged -= RaiseCanExecuteChanged;
             CurrentTarea = new SimpleTarea();
             CurrentTarea.ErrorsChanged += RaiseCanExecuteChanged;

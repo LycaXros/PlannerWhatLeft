@@ -24,10 +24,10 @@ namespace WhatLeftPlanning.Services
                 .Where(x => x.Estado.Equals("S") &&
                             x.Tarea.Estado.Equals("A")).ToList();
 
-            var xList = detalles.Select(x => x.Usuario).First().ToList();
+            var xList = detalles.Select(x => x.Usuarios).First().ToList();
             var existeUsuario = xList.Contains(DatosEstaticos.CurrentUser);
 
-            var TareaDetalle = detalles.Where(x => x.Usuario.ToList().Contains(DatosEstaticos.CurrentUser)).ToList();
+            var TareaDetalle = detalles.Where(x => x.Usuarios.ToList().Contains(DatosEstaticos.CurrentUser)).ToList();
 
                 //DatosEstaticos.CurrentUser.Tarea
                 //.Where(x => x.Estado.Equals("S")

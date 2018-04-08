@@ -11,7 +11,7 @@
         xmlns:view ="clr-namespace:WhatLeftPlanning.Views"
         xmlns:viewModel ="clr-namespace:WhatLeftPlanning.ViewModels"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Name="themedWindow"  x:Class="WhatLeftPlanning.MainWindow"
-        mc:Ignorable="d"
+        mc:Ignorable="d"  
         Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <dx:ThemedWindow.Resources>
@@ -20,6 +20,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:AddEditTareaViewModel}">
             <view:AddEditTareaView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ManejoUsuariosViewModel}">
+            <view:ManejoUsuariosView/>
         </DataTemplate>
     </dx:ThemedWindow.Resources>
 
@@ -44,9 +47,9 @@
                                            CommandParameter="nuevaTarea"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Administracion de Usuario">
-                        <dxb:BarButtonItem Content="Nuevo Usuario" Glyph="{dx:DXImage Image=BOCustomer_32x32.png}" LargeGlyph="{dx:DXImage Image=BOCustomer_32x32.png}" RibbonStyle="Large"
+                        <dxb:BarButtonItem Glyph="{dx:DXImage Image=BOCustomer_32x32.png}" LargeGlyph="{dx:DXImage Image=BOCustomer_32x32.png}" RibbonStyle="Large"
                                            Command="{Binding NavCommand}"
-                                           CommandParameter="nuevoUsuario"/>
+                                           CommandParameter="manejoUsuario" Content="Manejo de Usuario"/>
                         <dxb:BarButtonItem Content="Asignar a Grupos" LargeGlyph="{dx:DXImage Image=UserGroup_32x32.png}" Glyph="{dx:DXImage Image=UserGroup_16x16.png}"
                                            Command="{Binding NavCommand}"
                                            CommandParameter="asignarGrupos"/>

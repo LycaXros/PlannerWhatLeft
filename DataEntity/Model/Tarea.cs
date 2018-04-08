@@ -20,7 +20,6 @@ namespace DataEntity.Model
             this.Detalles = new HashSet<Tarea_Detalle>();
         }
     
-
         public int ID { get; set; }
         public int TipoID { get; set; }
         public string Nombre { get; set; }

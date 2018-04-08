@@ -322,7 +322,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="FechaFin" Type="DateTime" Precision="0" />
           <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tarea" Relationship="PlanningDBModel.fkDetalleTareaID" FromRole="Tarea_Detalle" ToRole="Tarea" />
-          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Tarea_Detalle" ToRole="Usuario" />
+          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Tarea_Detalle" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tipo_Tarea">
           <Key>
@@ -395,7 +395,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="Nick" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GrupoRef" Relationship="PlanningDBModel.FK_UsuarioGrupo_Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
-          <NavigationProperty Name="Tarea" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Usuario" ToRole="Tarea_Detalle" />
+          <NavigationProperty Name="DetalleTareas" Relationship="PlanningDBModel.TareaAsignadas" FromRole="Usuario" ToRole="Tarea_Detalle" />
           <NavigationProperty Name="Roles" Relationship="PlanningDBModel.RolUsuario" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
         <Association Name="FK_UsuarioGrupo_Usuario">

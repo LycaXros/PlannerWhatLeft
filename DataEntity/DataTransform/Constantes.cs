@@ -21,7 +21,7 @@ namespace DataEntity.DataTransform
     public class TareaEstados
     {
         public const string Activa = "A";
-        public const string Elminida = "D";
+        public const string Eliminida = "D";
         public const string Incompleta = "I";
     }
 

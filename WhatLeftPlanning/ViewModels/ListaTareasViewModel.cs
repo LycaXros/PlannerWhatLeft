@@ -58,7 +58,7 @@ namespace WhatLeftPlanning.ViewModels
 
         private void OnEdit()
         {
-            EditarTareaEvent(_selected);
+            EditarTareaEvent(SelectedTarea);
         }
 
         private async void OnDelete()

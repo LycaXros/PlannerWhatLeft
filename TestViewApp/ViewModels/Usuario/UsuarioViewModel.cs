@@ -38,7 +38,7 @@ namespace TestViewApp.ViewModels {
 
         protected override void RefreshLookUpCollections(bool raisePropertyChanged) {
             base.RefreshLookUpCollections(raisePropertyChanged);
-                Tarea_DetalleDetailEntities = CreateAddRemoveDetailEntitiesViewModel(x => x.Tarea_Detalle, x => x.Tarea);
+                Tarea_DetalleDetailEntities = CreateAddRemoveDetailEntitiesViewModel(x => x.Tarea_Detalle, x => x.DetalleTareas);
                 RolesDetailEntities = CreateAddRemoveDetailEntitiesViewModel(x => x.Rol, x => x.Roles);
         }
         /// <summary>
