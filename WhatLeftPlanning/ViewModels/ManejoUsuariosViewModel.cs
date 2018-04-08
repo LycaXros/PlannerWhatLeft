@@ -71,14 +71,15 @@ namespace WhatLeftPlanning.ViewModels
         {
             var usuario = new Usuario();
             if (EditMode) usuario = await _unidadTrabajo.Usuarios.GetByID(EditingUser.ID);
-            GetUsuarioTrasnform(usuario);
+            await GetUsuarioTrasnform(usuario);
 
-            _unidadTrabajo.Usuarios.Add(usuario);
+            if(!EditMode) _unidadTrabajo.Usuarios.Add(usuario);
 
+            OnNewUser();
             Done();
         }
 
-        private async void GetUsuarioTrasnform(Usuario target)
+        private async Task GetUsuarioTrasnform(Usuario target)
         {
             target.Nick = EditingUser.Nick;
             target.Nombre = EditingUser.Nombre;
@@ -124,6 +125,7 @@ namespace WhatLeftPlanning.ViewModels
 
         private void OnCancel()
         {
+            OnNewUser();
             Done();
         }
 

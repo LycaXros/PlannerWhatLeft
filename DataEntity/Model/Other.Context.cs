@@ -26,11 +26,11 @@ namespace DataEntity.Model
         }
     
         public virtual DbSet<Grupo> Grupo { get; set; }
-        public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Tarea> Tarea { get; set; }
         public virtual DbSet<Tarea_Detalle> Tarea_Detalle { get; set; }
         public virtual DbSet<Tipo_Tarea> Tipo_Tarea { get; set; }
         public virtual DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
     }
 }

@@ -21,8 +21,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RolUsuario">
           <Key>
             <PropertyRef Name="UsuarioID" />
@@ -200,18 +198,13 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
         <EntityContainer Name="PlanningDBModelStoreContainer">
           <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolUsuario" EntityType="Self.RolUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarea" EntityType="Self.Tarea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarea_Detalle" EntityType="Self.Tarea_Detalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TareaAsignadas" EntityType="Self.TareaAsignadas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Tarea" EntityType="Self.Tipo_Tarea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolUsuario" EntityType="Self.RolUsuario" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RolUsuario].[UsuarioID] AS [UsuarioID], 
-    [RolUsuario].[RolID] AS [RolID]
-    FROM [dbo].[RolUsuario] AS [RolUsuario]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_RolUsuario_Rol" Association="Self.FK_RolUsuario_Rol">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="RolUsuario" EntitySet="RolUsuario" />
@@ -251,7 +244,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
       <Schema Namespace="PlanningDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PlanningOther" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Grupo" EntityType="PlanningDBModel.Grupo" />
-          <EntitySet Name="Rol" EntityType="PlanningDBModel.Rol" />
           <EntitySet Name="Tarea" EntityType="PlanningDBModel.Tarea" />
           <EntitySet Name="Tarea_Detalle" EntityType="PlanningDBModel.Tarea_Detalle" />
           <EntitySet Name="Tipo_Tarea" EntityType="PlanningDBModel.Tipo_Tarea" />
@@ -277,6 +269,7 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
             <End Role="Tarea_Detalle" EntitySet="Tarea_Detalle" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <EntitySet Name="Rol" EntityType="PlanningDBModel.Rol" />
           <AssociationSet Name="RolUsuario" Association="PlanningDBModel.RolUsuario">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
@@ -291,14 +284,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UsuariosRef" Relationship="PlanningDBModel.FK_UsuarioGrupo_Grupo" FromRole="Grupo" ToRole="UsuarioGrupo" />
-        </EntityType>
-        <EntityType Name="Rol">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tarea">
           <Key>
@@ -416,6 +401,14 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
           <End Type="PlanningDBModel.Tarea_Detalle" Role="Tarea_Detalle" Multiplicity="*" />
           <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
         </Association>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="PlanningDBModel.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
         <Association Name="RolUsuario">
           <End Type="PlanningDBModel.Rol" Role="Rol" Multiplicity="*" />
           <End Type="PlanningDBModel.Usuario" Role="Usuario" Multiplicity="*" />
@@ -431,14 +424,6 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               <MappingFragment StoreEntitySet="Grupo">
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rol">
-            <EntityTypeMapping TypeName="PlanningDBModel.Rol">
-              <MappingFragment StoreEntitySet="Rol">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -502,6 +487,14 @@ warning 6002: The table/view 'PlanningDB.dbo.RolUsuario' does not have a primary
               <ScalarProperty Name="ID" ColumnName="TareaID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="PlanningDBModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="RolUsuario" TypeName="PlanningDBModel.RolUsuario" StoreEntitySet="RolUsuario">
             <EndProperty Name="Usuario">
               <ScalarProperty Name="ID" ColumnName="UsuarioID" />
