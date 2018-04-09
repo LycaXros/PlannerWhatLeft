@@ -12,6 +12,7 @@ namespace WhatLeftPlanning.Services
         IUserRepository Usuarios { get; }
         ITareasDetalleRepository TareasDetalle { get; }
         ITareaRepository Tareas { get; }
+        IGrupoRepository Grupos { get; }
         PlanningOther GetContext();
         /// <summary>
         /// Salvar <see cref="System.Data.Entity.DbContext"/>

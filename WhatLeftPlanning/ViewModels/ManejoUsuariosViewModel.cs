@@ -44,8 +44,8 @@ namespace WhatLeftPlanning.ViewModels
             EditarUsuarioCommand = new RelayCommand<SimpleUsuario>(OnEdit);
             EliminarCommand = new RelayCommand<SimpleUsuario>(OnDel);
             CancelCommand = new RelayCommand(OnCancel);
-            NuevoUserCommand = new RelayCommand(OnNewUser);
             SaveCommand = new RelayCommand(OnSave, CanSave);
+            NuevoUserCommand = new RelayCommand(OnNewUser);
 
         }
 

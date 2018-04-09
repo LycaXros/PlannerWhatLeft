@@ -16,6 +16,7 @@ namespace WhatLeftPlanning.Services
         private IUserRepository _usuarios;
         private ITareasDetalleRepository _tareasDetalle;
         private ITareaRepository _tareas;
+        private IGrupoRepository _grupos;
 
         public UnidadTrabajo(PlanningOther context)
         {
@@ -52,6 +53,15 @@ namespace WhatLeftPlanning.Services
             }
         }
 
+        public IGrupoRepository Grupos
+        {
+            get
+            {
+                if (_grupos == null)
+                    _grupos = new GrupoRepository(_context);
+                return _grupos;
+            }
+        }
 
         public async Task<int> Complete()
         {

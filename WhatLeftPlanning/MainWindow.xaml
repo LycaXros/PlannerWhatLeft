@@ -24,6 +24,12 @@
         <DataTemplate DataType="{x:Type viewModel:ManejoUsuariosViewModel}">
             <view:ManejoUsuariosView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NuevoGrupoViewModel}">
+            <view:NuevoGrupoView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ListaDetallesGrupoViewModel}">
+            <view:ListaDetallesGrupoView />
+        </DataTemplate>
     </dx:ThemedWindow.Resources>
 
     <Grid>
@@ -84,7 +90,6 @@
                       HorizontalScrollBarVisibility="Disabled">
             <Grid Height="500">
                 <ContentControl Content="{Binding CurrentViewModel}" />
-
             </Grid>
         </ScrollViewer>
     </Grid>

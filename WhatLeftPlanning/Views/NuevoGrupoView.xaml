@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="WhatLeftPlanning.Views.NuevoGrupoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
+             mc:Ignorable="d" Width="600"
+             d:DesignHeight="400" d:DesignWidth="500">
+    <!--<UserControl.DataContext>
+        <ViewModels:NuevoGrupoViewModel/>
+    </UserControl.DataContext>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Guardar"
+                    Command="{Binding SaveCommand}"
+                    FontSize="18" Margin="5" />
+            <Button Content="Cancelar" Grid.Column="2"
+                    Command="{Binding CancelCommand}"
+                    FontSize="18" Margin="5"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Background="LightCyan"
+                    DataContext="{Binding CurrentGrupo}">
+            <TextBlock Text="Nombre del Grupo" FontFamily="Lato" FontSize="24" Margin="5"/>
+            <TextBox Text="{Binding Nombre, ValidatesOnNotifyDataErrors=True}" FontSize="20" />
+            <TextBlock Text="Descripcion del Grupo" FontFamily="Lato" FontSize="24" Margin="10 10 0 0"/>
+            <TextBox Text="{Binding Descripcion, ValidatesOnNotifyDataErrors=True}"
+                     TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" 
+                     FontSize="20"
+                     Height="200"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

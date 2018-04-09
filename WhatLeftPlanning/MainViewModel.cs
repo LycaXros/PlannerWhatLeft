@@ -39,6 +39,12 @@ namespace WhatLeftPlanning
             _manejoUsuariosView = new ManejoUsuariosViewModel(unidadTrabajo);
             _manejoUsuariosView.Done += SaveContext;
 
+            _nuevoGrupoView = new NuevoGrupoViewModel(unidadTrabajo);
+            _nuevoGrupoView.Done += RefreshListGrupo;
+
+            _listaGrupoView = new ListaDetallesGrupoViewModel(unidadTrabajo);
+            _listaGrupoView.Done += RefreshListGrupo;
+
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
             ShowReportCommand = new RelayCommand<string>(ShowReport, CanNav);
             CurrentViewModel = _listaTareasView;
@@ -48,6 +54,13 @@ namespace WhatLeftPlanning
         }
 
         #region Funciones Privadas
+
+        private async void RefreshListGrupo()
+        {
+            var i = await _unidadTrabajo.Complete();
+
+            OnNav("adminGroup");
+        }
 
         private void OnNav(string obj)
         {
@@ -59,11 +72,28 @@ namespace WhatLeftPlanning
                 case "manejoUsuario":
                     NavToManejoUsuario();
                     break;
+                case "adminGroup":
+                    NavToAdminGrupos();
+                    break;
+                case "newGroup":
+                    NavToNuevoGrupo();
+                    break;
                 case "listaTareas":
                 default:
                     CurrentViewModel = _listaTareasView;
                     break;
             }
+        }
+
+        private void NavToNuevoGrupo()
+        {
+            _nuevoGrupoView.SetGrupo(new Grupo());
+            CurrentViewModel = _nuevoGrupoView;
+        }
+
+        private void NavToAdminGrupos()
+        {
+            CurrentViewModel = _listaGrupoView;
         }
 
         private void NavToManejoUsuario()
@@ -139,6 +169,8 @@ namespace WhatLeftPlanning
             $"{DatosEstaticos.CurrentUser.Nick} ({DatosEstaticos.CurrentUser.Nombre} {DatosEstaticos.CurrentUser.Apellido} )";
 
         private ManejoUsuariosViewModel _manejoUsuariosView;
+        private NuevoGrupoViewModel _nuevoGrupoView;
+        private ListaDetallesGrupoViewModel _listaGrupoView;
 
         public RelayCommand<string> NavCommand { get; private set; }
 

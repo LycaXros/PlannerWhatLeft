@@ -11,6 +11,9 @@ namespace DataEntity.DataTransform
         public const int TipoTareaTemporal = 2;
         public const int TipoTareaDiaria = 1;
 
+        public const string GrupoUsuarioLider = "L";
+        public const string GrupoUsuarioNormal = "I";
+
     }
     public class RolConstantes
     {

@@ -89,4 +89,19 @@ namespace WhatLeftPlanning.SimpleItems
         public List<Rol> Roles { get => _roles; set => SetProperty(ref _roles, value); }
         
     }
+
+    public class SimpleGrupo: ValidateViewModelBase
+    {
+        private int _id;
+        private string _nombre;
+        private string _descripcion;
+
+        public int ID { get => _id; set => SetProperty(ref _id , value); }
+
+        [Required(ErrorMessage = "Se Necesita del Nombew del Grupo")]
+        [StringLength(50, ErrorMessage = "Debe de ser mayor a 5  y menor de 50 caracteres", MinimumLength = 5)]
+        public string Nombre { get => _nombre; set => SetProperty(ref _nombre , value); }
+
+        public string Descripcion { get => _descripcion; set => SetProperty(ref _descripcion , value); }
+    }
 }

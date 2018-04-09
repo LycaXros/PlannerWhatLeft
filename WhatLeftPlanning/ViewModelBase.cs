@@ -24,5 +24,7 @@ namespace WhatLeftPlanning
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+
     }
 }
