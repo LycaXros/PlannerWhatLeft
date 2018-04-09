@@ -45,6 +45,8 @@ namespace WhatLeftPlanning
             _listaGrupoView = new ListaDetallesGrupoViewModel(unidadTrabajo);
             _listaGrupoView.Done += RefreshListGrupo;
 
+            _asignarGruposView = new AsignarGrupoViewModel(unidadTrabajo);
+
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
             ShowReportCommand = new RelayCommand<string>(ShowReport, CanNav);
             CurrentViewModel = _listaTareasView;
@@ -78,11 +80,19 @@ namespace WhatLeftPlanning
                 case "newGroup":
                     NavToNuevoGrupo();
                     break;
+                case "asignarGrupos":
+                    NavToAsignarGrupo();
+                    break;
                 case "listaTareas":
                 default:
                     CurrentViewModel = _listaTareasView;
                     break;
             }
+        }
+
+        private void NavToAsignarGrupo()
+        {
+            CurrentViewModel = _asignarGruposView;
         }
 
         private void NavToNuevoGrupo()
@@ -171,6 +181,7 @@ namespace WhatLeftPlanning
         private ManejoUsuariosViewModel _manejoUsuariosView;
         private NuevoGrupoViewModel _nuevoGrupoView;
         private ListaDetallesGrupoViewModel _listaGrupoView;
+        private AsignarGrupoViewModel _asignarGruposView;
 
         public RelayCommand<string> NavCommand { get; private set; }
 

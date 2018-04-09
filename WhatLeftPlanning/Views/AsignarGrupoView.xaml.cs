@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace WhatLeftPlanning.Views
 {
     /// <summary>
-    /// Interaction logic for ListaDetallesGrupoView.xaml
+    /// Interaction logic for AsignarGrupoView.xaml
     /// </summary>
-    public partial class ListaDetallesGrupoView : UserControl
+    public partial class AsignarGrupoView : UserControl
     {
-        public ListaDetallesGrupoView()
+        public AsignarGrupoView()
         {
             InitializeComponent();
         }

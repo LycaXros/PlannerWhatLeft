@@ -190,6 +190,7 @@
     <Compile Include="ValidateViewModelBase.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AddEditTareaViewModel.cs" />
+    <Compile Include="ViewModels\AsignarGrupoViewModel.cs" />
     <Compile Include="ViewModels\ListaDetallesGrupoViewModel.cs" />
     <Compile Include="ViewModels\ListaTareasViewModel.cs" />
     <Compile Include="SimpleItems\LookUpGrupo.cs" />
@@ -197,6 +198,9 @@
     <Compile Include="ViewModels\NuevoGrupoViewModel.cs" />
     <Compile Include="Views\AddEditTareaView.xaml.cs">
       <DependentUpon>AddEditTareaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AsignarGrupoView.xaml.cs">
+      <DependentUpon>AsignarGrupoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ListaDetallesGrupoView.xaml.cs">
       <DependentUpon>ListaDetallesGrupoView.xaml</DependentUpon>
@@ -271,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddEditTareaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AsignarGrupoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

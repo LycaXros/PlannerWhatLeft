@@ -30,6 +30,9 @@
         <DataTemplate DataType="{x:Type viewModel:ListaDetallesGrupoViewModel}">
             <view:ListaDetallesGrupoView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AsignarGrupoViewModel}">
+            <view:AsignarGrupoView/>
+        </DataTemplate>
     </dx:ThemedWindow.Resources>
 
     <Grid>

@@ -7,8 +7,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:WhatLeftPlanning.ViewModels"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"  d:DesignHeight="500" d:DesignWidth="500">
     <!--<UserControl.DataContext>
         <ViewModels:ListaDetallesGrupoViewModel/>
     </UserControl.DataContext>-->
@@ -47,15 +46,62 @@
             <dxg:GridControl ItemsSource="{Binding Grupos}" SelectionMode="Row" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
                              AutoGenerateColumns="None" >
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowEditing="False"/>
+                    <dxg:TableView AllowEditing="False" AutoWidth="True" AllowBestFit="True" BestFitMode="AllRows"/>
                 </dxg:GridControl.View>
-                <dxg:GridColumn FieldName="FullDesc" Header="Grupo "/>
-                <dxg:GridColumn FieldName="Descripcion" Header="Descripcion"/>
+                <dxg:GridColumn Header="Grupo">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RowData.Row.FullDesc}" 
+                                       FontFamily="{StaticResource LatoBold}"
+                                       FontSize="20"
+                                       Margin="5"
+                                       Width="Auto"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                    <dxg:GridColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding}" FontFamily="{StaticResource LatoThin}"
+                                   FontSize="22" />
+                        </DataTemplate>
+                    </dxg:GridColumn.HeaderTemplate>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Total" Header="Total de Usuarios" SortOrder="Ascending" GroupIndex="0">
+                    <dxg:GridColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding}" FontFamily="{StaticResource LatoThin}"
+                                   FontSize="22" />
+                        </DataTemplate>
+                    </dxg:GridColumn.HeaderTemplate>
+                    
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Descripcion" >
+                    <dxg:GridColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding}" FontFamily="{StaticResource LatoThin}"
+                                   FontSize="22" />
+                        </DataTemplate>
+                    </dxg:GridColumn.HeaderTemplate>
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RowData.Row.Descripcion}" 
+                                       FontFamily="{StaticResource LatoBold}"
+                                       FontSize="20"
+                                       Margin="5"
+                                       Width="Auto"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+
             </dxg:GridControl>
         </dx:LoadingDecorator>
-        <Button Content="Eliminar"
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Label  Content="{Binding SelectedItem.FullDesc}"
+                    Margin="10" FontSize="20" FontFamily="{StaticResource LatoBold}" 
+                    Width="Auto"/>
+            <Button Content="Eliminar"
                 Command="{Binding EliminarCommand}" 
                 FontFamily="{StaticResource LatoThin}"
-                FontSize="15" Grid.Row="1" Margin="10"/>
+                FontSize="15" Margin="10"/>
+        </StackPanel>
     </Grid>
 </UserControl>
