@@ -174,6 +174,7 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SimpleItems\LookUpUser.cs" />
     <Compile Include="SimpleItems\SimpleItems.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="Startup\DatosEstaticos.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AddEditTareaViewModel.cs" />
     <Compile Include="ViewModels\AsignarGrupoViewModel.cs" />
+    <Compile Include="ViewModels\AsignarTareasViewModel.cs" />
     <Compile Include="ViewModels\ListaDetallesGrupoViewModel.cs" />
     <Compile Include="ViewModels\ListaTareasViewModel.cs" />
     <Compile Include="SimpleItems\LookUpGrupo.cs" />
@@ -201,6 +203,9 @@
     </Compile>
     <Compile Include="Views\AsignarGrupoView.xaml.cs">
       <DependentUpon>AsignarGrupoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AsignarTareasView.xaml.cs">
+      <DependentUpon>AsignarTareasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ListaDetallesGrupoView.xaml.cs">
       <DependentUpon>ListaDetallesGrupoView.xaml</DependentUpon>
@@ -282,6 +287,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AsignarTareasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ListaDetallesGrupoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -343,6 +352,7 @@
     <Resource Include="Fonts\Lato-SemiboldItalic.ttf" />
     <Resource Include="Fonts\Lato-Thin.ttf" />
     <Resource Include="Fonts\Lato-ThinItalic.ttf" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

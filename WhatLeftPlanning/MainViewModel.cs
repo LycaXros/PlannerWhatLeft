@@ -1,15 +1,12 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using WhatLeftPlanning.Startup;
-using DevExpress.Xpf.Ribbon;
-using WhatLeftPlanning.Services;
 using DataEntity.DataTransform;
+using DataEntity.Model;
+using System;
+using System.Linq;
+using WhatLeftPlanning.Services;
+using WhatLeftPlanning.Startup;
 using WhatLeftPlanning.ViewModels;
 using WhatLeftPlanning.Views;
-using DataEntity.Model;
 
 namespace WhatLeftPlanning
 {
@@ -46,6 +43,10 @@ namespace WhatLeftPlanning
             _listaGrupoView.Done += RefreshListGrupo;
 
             _asignarGruposView = new AsignarGrupoViewModel(unidadTrabajo);
+            _asignarGruposView.Done += SaveContext;
+
+            _asignarTareasView = new AsignarTareasViewModel(unidadTrabajo);
+            _asignarTareasView.Done += SaveContext;
 
             NavCommand = new RelayCommand<string>(OnNav, CanNav);
             ShowReportCommand = new RelayCommand<string>(ShowReport, CanNav);
@@ -64,6 +65,10 @@ namespace WhatLeftPlanning
             OnNav("adminGroup");
         }
 
+        private void NavToAsignarTareas()
+        {
+            CurrentViewModel = _asignarTareasView;
+        }
         private void OnNav(string obj)
         {
             switch (obj)
@@ -82,6 +87,9 @@ namespace WhatLeftPlanning
                     break;
                 case "asignarGrupos":
                     NavToAsignarGrupo();
+                    break;
+                case "setTareas":
+                    NavToAsignarTareas();
                     break;
                 case "listaTareas":
                 default:
@@ -182,10 +190,12 @@ namespace WhatLeftPlanning
         private NuevoGrupoViewModel _nuevoGrupoView;
         private ListaDetallesGrupoViewModel _listaGrupoView;
         private AsignarGrupoViewModel _asignarGruposView;
+        private AsignarTareasViewModel _asignarTareasView;
 
         public RelayCommand<string> NavCommand { get; private set; }
 
         public RelayCommand<string> ShowReportCommand { get; }
+
 
         #endregion
     }

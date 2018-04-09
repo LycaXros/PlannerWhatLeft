@@ -26,7 +26,7 @@
             }
         }
 
-        public string Descripcion { get => _descripcion; set => SetProperty(ref _descripcion , value); }
+        public string Descripcion { get => _descripcion; set => SetProperty(ref _descripcion, value); }
         public string FullDesc => $"{Nombre}, Total Usuarios:{Total}";
     }
 }

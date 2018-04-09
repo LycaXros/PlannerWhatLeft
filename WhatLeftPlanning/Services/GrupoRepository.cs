@@ -18,7 +18,7 @@ namespace WhatLeftPlanning.Services
         public async Task AsignarUsuario(Usuario usuario, Grupo grupo )
         {
 
-            var lista = grupo.UsuariosRef.ToList();
+            var lista = (Context as PlanningOther).UsuarioGrupo;
 
             lista.Add(new UsuarioGrupo()
             {

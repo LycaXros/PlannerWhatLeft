@@ -1,25 +1,22 @@
-﻿using System;
+﻿using DataEntity.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DataEntity.Model;
-using DevExpress.DataAccess.Wizard.Presenters;
-using DevExpress.Mvvm;
 using WhatLeftPlanning.Services;
+using WhatLeftPlanning.SimpleItems;
 using WhatLeftPlanning.Startup;
 
 namespace WhatLeftPlanning.ViewModels
 {
     public class AsignarGrupoViewModel : ViewModelBase
     {
+        private ObservableCollection<Grupo> _grupos;
+        private int _selectedGrupoId;
+        private List<System.Object> _selectedUsers;
         private IUnidadTrabajo _unidadTrabajo;
 
-        public RelayCommand SaveCommand { get; }
-
-        private ObservableCollection<Usuario> _usuarios;
-        private int _selectedGrupoId;
-        private ObservableCollection<Grupo> _grupos;
-        private List<System.Object> _selectedUsers;
+        private ObservableCollection<LookUpUser> _usuarios;
 
         public AsignarGrupoViewModel()
         {
@@ -31,44 +28,45 @@ namespace WhatLeftPlanning.ViewModels
             SaveCommand = new RelayCommand(OnSave, CanSave);
         }
 
-        private void OnSave()
-        {
-
-        }
+        public event Action Done = delegate { };
 
         private bool CanSave()
         {
-            return SelectedUsers == null ? false : SelectedUsers.Count > 0 ;
+            return SelectedUsers == null ? false : SelectedUsers.Count > 0;
         }
 
-        public ObservableCollection<Usuario> Usuarios
+        private async void OnSave()
         {
-            get => _usuarios;
-            private set => SetProperty(ref _usuarios, value);
-        }
-        public int SelectedGrupoID
-        {
-            get => _selectedGrupoId; set
+            var grupo = await _unidadTrabajo.Grupos.GetByID(SelectedGrupoID);
+            foreach (var item in SelectedUsers)
             {
-                SetProperty(ref _selectedGrupoId, value);
-                LoadUsers(_selectedGrupoId);
+                int id = 0;
+                if (int.TryParse(item.ToString(), out id))
+                {
+                    var usuario = await _unidadTrabajo.Usuarios.GetByID(id);
+                    await _unidadTrabajo.Grupos.AsignarUsuario(usuario, grupo);
+                }
             }
+            LoadUsers(SelectedGrupoID);
+            Done();
         }
 
-        public ObservableCollection<Grupo> Grupos
+        private IEnumerable<LookUpUser> ToLookUpUser(List<Usuario> users)
         {
-            get => _grupos; private set
+            List<LookUpUser> lookUps = new List<LookUpUser>();
+
+            foreach (var item in users)
             {
-                SetProperty(ref _grupos, value);
+                lookUps.Add(new LookUpUser()
+                {
+                    ID = item.ID,
+                    Nick = item.Nick,
+                    Nombre = item.Nombre,
+                    Apellido = item.Apellido
+                });
             }
-        }
-        public List<System.Object> SelectedUsers
-        {
-            get => _selectedUsers; set
-            {
-                SetProperty(ref _selectedUsers, value);
-                SaveCommand.RaiseCanExecuteChanged();
-            }
+
+            return lookUps;
         }
 
         public async void LoadGrupos()
@@ -84,10 +82,42 @@ namespace WhatLeftPlanning.ViewModels
                 .Select(x => x.Usuario).ToList();
 
             users = (await _unidadTrabajo.Usuarios.GetAll())
-                .Where(x => !x.ID.Equals(DatosEstaticos.CurrentUser.ID) || 
-                            !users.Contains(x) ).ToList();
+                .Where(x => !x.ID.Equals(DatosEstaticos.CurrentUser.ID) &&
+                            !users.Contains(x)).ToList();
 
-            Usuarios = new ObservableCollection<Usuario>(users);
+            Usuarios = new ObservableCollection<LookUpUser>(ToLookUpUser(users));
+        }
+
+        public ObservableCollection<Grupo> Grupos
+        {
+            get => _grupos; private set
+            {
+                SetProperty(ref _grupos, value);
+            }
+        }
+
+        public RelayCommand SaveCommand { get; }
+        public int SelectedGrupoID
+        {
+            get => _selectedGrupoId; set
+            {
+                SetProperty(ref _selectedGrupoId, value);
+                LoadUsers(_selectedGrupoId);
+            }
+        }
+        public List<System.Object> SelectedUsers
+        {
+            get => _selectedUsers; set
+            {
+                SetProperty(ref _selectedUsers, value);
+                SaveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public ObservableCollection<LookUpUser> Usuarios
+        {
+            get => _usuarios;
+            private set => SetProperty(ref _usuarios, value);
         }
     }
 }

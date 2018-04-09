@@ -23,7 +23,8 @@ namespace WhatLeftPlanning.Services
             var detalles = dbSet
                 .Where(x => x.Estado.Equals("S") &&
                             x.Tarea.Estado.Equals("A")).ToList();
-
+            if (detalles.Count < 1)
+                return detalles;
             var xList = detalles.Select(x => x.Usuarios).First().ToList();
             var existeUsuario = xList.Contains(DatosEstaticos.CurrentUser);
 
