@@ -11,8 +11,8 @@
         xmlns:view ="clr-namespace:WhatLeftPlanning.Views"
         xmlns:viewModel ="clr-namespace:WhatLeftPlanning.ViewModels"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Name="themedWindow"  x:Class="WhatLeftPlanning.MainWindow"
-        mc:Ignorable="d"  
-        Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        mc:Ignorable="d"  Icon="SchedulerIcon.ico" 
+        Title="Whats Left?" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <dx:ThemedWindow.Resources>
         <DataTemplate DataType="{x:Type viewModel:ListaTareasViewModel}">

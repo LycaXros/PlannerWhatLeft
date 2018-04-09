@@ -4,8 +4,8 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
     x:Class="WhatLeftPlanning.Views.ReportWindows"
-    Title="ReportWindows" Height="490.961" Width="750.057"
-    WindowState="Maximized" Loaded="LoadedWin"
+    Title="Reporte" Height="490.961" Width="750.057"
+    WindowState="Maximized" Loaded="LoadedWin"  Icon="../SchedulerIcon.ico"
     >
 
     <Grid>
