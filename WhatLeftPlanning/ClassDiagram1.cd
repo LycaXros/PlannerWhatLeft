@@ -31,7 +31,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.ManejoUsuariosViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.75" Y="3.75" Width="2.25" />
+    <Position X="6.75" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>UABBACAAABAJAAACEwAQABACAAACQwAgCgoAAQhEAgA=</HashCode>
       <FileName>ViewModels\ManejoUsuariosViewModel.cs</FileName>
@@ -164,6 +164,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Startup\DatosEstaticos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WhatLeftPlanning.ViewModels.AsignarTareasViewModel" Collapsed="true">
+    <Position X="5.25" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ECBQAQAAARAKJAAAAgAAAAACAAAAAAAAAAIAAAAEAgA=</HashCode>
+      <FileName>ViewModels\AsignarTareasViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="WhatLeftPlanning.Services.IGrupoRepository" Collapsed="true">
