@@ -36,7 +36,7 @@ namespace WhatLeftPlanning.Services
 
             }
             catch (Exception ex)
-            {   }
+            { throw ex; }
 
             if (userExist)
             {
