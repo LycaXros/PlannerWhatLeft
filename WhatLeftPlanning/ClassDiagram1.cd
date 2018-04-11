@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
   <Class Name="WhatLeftPlanning.ViewModels.AddEditTareaViewModel" Collapsed="true">
-    <Position X="2" Y="1.5" Width="2" />
+    <Position X="14.25" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>UYBAACAAQQAIAFAAAAQAAQACgAIAAIAACAAAVAgEAAA=</HashCode>
       <FileName>ViewModels\AddEditTareaViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.AsignarGrupoViewModel" Collapsed="true">
-    <Position X="4.5" Y="1.5" Width="2" />
+    <Position X="19.5" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>EABAAQBAABAIAEAAAABAAAACCAAAAAAAAAIAAQEEAhA=</HashCode>
       <FileName>ViewModels\AsignarGrupoViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.ListaDetallesGrupoViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.75" Y="1.5" Width="2.25" />
+    <Position X="25" Y="1.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>QABBAAAAAAAYAEAAIQBAAAAAAQAAAgAAABAAAAABABA=</HashCode>
       <FileName>ViewModels\ListaDetallesGrupoViewModel.cs</FileName>
@@ -23,7 +23,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.ListaTareasViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3.25" Y="3" Width="1.75" />
+    <Position X="17" Y="1.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>QCABACAAIAAIIAAQI0AACAAAAAABAwEAAAAAAAIBAAA=</HashCode>
       <FileName>ViewModels\ListaTareasViewModel.cs</FileName>
@@ -31,7 +31,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.ManejoUsuariosViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.75" Y="4" Width="2.25" />
+    <Position X="28" Y="1.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>UABBACAAABAJAAACEwAQABACAAACQwAgCgoAAQhEAgA=</HashCode>
       <FileName>ViewModels\ManejoUsuariosViewModel.cs</FileName>
@@ -39,14 +39,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.NuevoGrupoViewModel" Collapsed="true">
-    <Position X="9.25" Y="4" Width="2" />
+    <Position X="31" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>UABIACAAAAAKAAQQAAAAAAACAAQAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>ViewModels\NuevoGrupoViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.Services.GrupoRepository" Collapsed="true">
-    <Position X="14.25" Y="6.25" Width="1.5" />
+    <Position X="5.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Services\GrupoRepository.cs</FileName>
@@ -54,7 +54,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.Services.Repositorio&lt;TEntity&gt;" Collapsed="true">
-    <Position X="13.5" Y="4" Width="1.75" />
+    <Position X="4" Y="7.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAgAAAAAAAAAABAAAAAAIAAAACgAAgIAEAAA=</HashCode>
       <FileName>Services\Repositorio.cs</FileName>
@@ -62,7 +62,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.Services.TareaRepository" Collapsed="true">
-    <Position X="10" Y="6.25" Width="1.5" />
+    <Position X="0.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\TareaRepository.cs</FileName>
@@ -70,23 +70,23 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.Services.TareasDetalleRepository" Collapsed="true">
-    <Position X="12" Y="6.25" Width="2" />
+    <Position X="2.75" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\TareasDetalleRepository.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="WhatLeftPlanning.Services.UnidadTrabajo" Collapsed="true">
-    <Position X="3" Y="7.5" Width="1.5" />
+  <Class Name="WhatLeftPlanning.Services.UnidadTrabajo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACABAIAAADAABEIAAgBAAAAAAAAAAAAAACgAAAAAAgA=</HashCode>
       <FileName>Services\UnidadTrabajo.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WhatLeftPlanning.Services.UserRepository" Collapsed="true">
-    <Position X="16.25" Y="6.25" Width="1.5" />
+    <Position X="7.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAEAAAAAAAAAA=</HashCode>
       <FileName>Services\UserRepository.cs</FileName>
@@ -94,49 +94,49 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.SimpleItems.LookUpGrupo" Collapsed="true">
-    <Position X="2.75" Y="5.5" Width="1.75" />
+    <Position X="6.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACQAAAAAAAAAAEAIBAgAABAAAAQAAAAAAAAAIAAAA=</HashCode>
       <FileName>SimpleItems\LookUpGrupo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.SimpleItems.LookUpUser" Collapsed="true">
-    <Position X="0.5" Y="7.5" Width="1.5" />
+    <Position X="1.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAQEAABAgAAAABIAABAAAAAAAAIAAAA=</HashCode>
       <FileName>SimpleItems\LookUpUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.SimpleItems.SimpleGrupo" Collapsed="true">
-    <Position X="7.25" Y="6.25" Width="1.75" />
+    <Position X="11.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAEAABAgAABAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>SimpleItems\SimpleItems.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.SimpleItems.SimpleTarea" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.75" />
+    <Position X="4.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAgAAAAABAgAACAAAAAAAAAEAAEAIAAAA=</HashCode>
       <FileName>SimpleItems\SimpleItems.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.SimpleItems.SimpleUsuario" Collapsed="true">
-    <Position X="4.5" Y="6.5" Width="1.75" />
+    <Position X="9.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAYEAIBAgAAAAhIQAAAgAAABAAIAAAA=</HashCode>
       <FileName>SimpleItems\SimpleItems.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.Startup.Bootstrapper" Collapsed="true">
-    <Position X="5.5" Y="7.75" Width="1.5" />
+    <Position X="36.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Startup\Bootstrapper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.ValidateViewModelBase" Collapsed="true">
-    <Position X="0.5" Y="2.75" Width="2" />
+    <Position X="6.75" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAABAAAAAAAAAAEAAAAIAAAAAAABAAA=</HashCode>
       <FileName>ValidateViewModelBase.cs</FileName>
@@ -144,7 +144,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.ViewModelBase" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="18" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModelBase.cs</FileName>
@@ -152,7 +152,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.UserManagement.LoginFormViewModel" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+    <Position X="33.75" Y="1.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>QAQBACQAAIgAAAAAAQAAQgAAABAAAAACAQAAAAGAAAA=</HashCode>
       <FileName>UserManagement\LoginFormViewModel.cs</FileName>
@@ -160,56 +160,56 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WhatLeftPlanning.Startup.DatosEstaticos" Collapsed="true">
-    <Position X="7.5" Y="7.75" Width="1.5" />
+    <Position X="38.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Startup\DatosEstaticos.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WhatLeftPlanning.ViewModels.AsignarTareasViewModel" Collapsed="true">
-    <Position X="5.25" Y="3" Width="2.25" />
+    <Position X="22.25" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>ECBQAQAAARAKJAAAAgAAAAACAAAAAAAAAAIAAAAEAgA=</HashCode>
       <FileName>ViewModels\AsignarTareasViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="WhatLeftPlanning.Services.IGrupoRepository" Collapsed="true">
-    <Position X="11.75" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Services\IGrupoRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WhatLeftPlanning.Services.IRepositorio&lt;TEntity&gt;" Collapsed="true">
-    <Position X="13.25" Y="0.5" Width="1.75" />
+    <Position X="4" Y="4.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAIAAAAAgAAgIAEAAA=</HashCode>
       <FileName>Services\IRepositorio.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WhatLeftPlanning.Services.ITareaRepository" Collapsed="true">
-    <Position X="15.75" Y="1.25" Width="1.5" />
+    <Position X="7.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\ITareaRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WhatLeftPlanning.Services.ITareasDetalleRepository" Collapsed="true">
-    <Position X="11.75" Y="2.75" Width="2" />
+    <Position X="2.75" Y="5.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\ITareasDetalleRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WhatLeftPlanning.Services.IUnidadTrabajo" Collapsed="true">
-    <Position X="3" Y="8.5" Width="1.5" />
+    <Position X="36.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACABAAAAAAAAAAIAAABAAAAAAAAAAAAAACAAAAAAAgA=</HashCode>
       <FileName>Services\IUnidadTrabajo.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WhatLeftPlanning.Services.IUserRepository" Collapsed="true">
-    <Position X="14.75" Y="2.75" Width="1.5" />
+    <Position X="5.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Services\IUserRepository.cs</FileName>
