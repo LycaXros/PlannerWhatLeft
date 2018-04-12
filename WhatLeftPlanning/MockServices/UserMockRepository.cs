@@ -4,46 +4,39 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DataEntity.DataTransform;
 using DataEntity.Model;
+using WhatLeftPlanning.Services;
 using WhatLeftPlanning.Startup;
 
-namespace WhatLeftPlanning.Services
+namespace WhatLeftPlanning.MockServices
 {
-    public class UserRepository : Repositorio<Usuario>, IUserRepository
+    public class UserMockRepository : MockRepositorio<Usuario>, IUserRepository
     {
-        public UserRepository(PlanningOther context)
+        public UserMockRepository(Dictionary<Type, object> context)
             :base(context)
         {
         }
 
         public async Task<bool> ValidarCredencialesAsync(string nick, string pass)
         {
+            await Task.Run(() => Thread.Sleep(100));
             if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pass))
                 return false;
 
-            var userExist = await dbSet
-                .AnyAsync(x => x.Nick.Equals(nick));
+            var userExist =  dbSet
+                .Any(x => x.Nick.Equals(nick));
 
             var passConverted = Encriptador.Encriptar(pass);
 
-            try
-            {
-                var dataConfig = System.Configuration.ConfigurationManager
-                        .GetSection("customData");
-                var savedPass = (dataConfig as DataEntity.XmlConfig.DataSection).Instances["AdminCodPass"].Value;
-
-            }
-            catch (Exception ex)
-            { throw ex; }
-
             if (userExist)
             {
-                var dbPass = await dbSet
+                var dbPass = dbSet
                     //.Where(x => x.Nick.Equals(nick))
                     //.Select(x => x.Contraseña)
-                    .FirstAsync(x => x.Nick.Equals(nick));
+                    .First(x => x.Nick.Equals(nick));
 
                 var decryptedPass = Encriptador.Desencriptar(dbPass.Contraseña);
                 return pass.Equals(decryptedPass);
@@ -56,16 +49,13 @@ namespace WhatLeftPlanning.Services
 
         public async Task<Usuario> GetUser(string nick, string pass)
         {
+            await Task.Run(() => Thread.Sleep(100));
             var passConverted = Encriptador.Encriptar(pass);
 
-            return await  dbSet
-                .FirstOrDefaultAsync(x => x.Nick.Equals(nick) && passConverted.Equals(x.Contraseña) );
+            return  dbSet
+                .FirstOrDefault(x => x.Nick.Equals(nick) && passConverted.Equals(x.Contraseña) );
         }
 
 
-        public PlanningOther PlanningDb
-        {
-            get => Context as PlanningOther;
-        }
     }
 }
