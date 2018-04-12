@@ -60,7 +60,10 @@ namespace WhatsLeftPlanning.Test
             
             var usuario = (await _uow.Usuarios.GetAll()).ToList().First(x => x.Nick.Equals("Admin"));
             var contra = DataEntity.DataTransform.Encriptador.Desencriptar(usuario.Contraseña);
-            StringAssert.Equals("123456Pass", contra);
+            if(StringAssert.Equals("123456Pass", contra))
+            {
+                Console.WriteLine("Passed");
+            }
 
             bool validUser = await _uow.Usuarios.ValidarCredencialesAsync("Admin", "123456pass");
             Assert.AreEqual(true, validUser);
