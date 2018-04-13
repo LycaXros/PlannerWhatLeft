@@ -3,6 +3,9 @@ GO
 
 IF EXISTS (Select name from sys.databases where name = N'PlanningDB')
 	ALTER DATABASE [PlanningDB] set single_user WITH rollback IMMEDIATE
+go
+	
+IF EXISTS (Select name from sys.databases where name = N'PlanningDB')
 	DROP DATABASE [PlanningDB]
 GO
 /****** Object:  Database [PlanningDB]    Script Date: 09/04/2018 10:36:44 a. m. ******/
