@@ -68,5 +68,13 @@ namespace WhatsLeftPlanning.Test
             bool validUser = await _uow.Usuarios.ValidarCredencialesAsync("Admin", "123456pass");
             Assert.AreEqual(true, validUser);
         }
+
+        [TestMethod]
+        public void CantidadTipos()
+        {
+            var tipos =  _uow.Tareas.ObtenerTipos();
+
+            Assert.AreEqual(2, tipos.Count());
+        }
     }
 }
